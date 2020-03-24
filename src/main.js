@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import swal from 'sweetalert'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import swal from 'sweetalert';
+
 
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-right">
-      <button>新增新產品</button>
+      <router-link to="add"><button type="button" class="btn btn-primary">新增產品</button></router-link>
     </div>
     <table class="table mt-4">
       <thead>
@@ -26,7 +26,7 @@
           </td>
           <td>{{ item.num }}{{ item.unit }}</td>
           <td>
-            <button>編輯</button>
+            <button type="button" class="btn btn-primary">編輯</button>
           </td>
         </tr>
       </tbody>
@@ -48,7 +48,8 @@ export default {
         console.log(response.data);
         this.products = response.data.products;
       });
-    }
+    },
+    openModel() {}
   },
   created() {
     //務必要在下方加入created才會執行
