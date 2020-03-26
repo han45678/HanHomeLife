@@ -13,7 +13,7 @@ Vue.config.productionTip = false
 axios.defaults.withCredentials = true; //允許Cookies
 
 new Vue({
-  router,
+   router,
   store,
   render: h => h(App)
 }).$mount('#app')
@@ -26,8 +26,8 @@ router.beforeEach((to, from, next) => {
     axios.post(api).then(response => {
       console.log(response.data);
       if (response.data.success) {
-        swal('登入成功');
-        next();
+        //swal('登入成功');
+        next({});
       } else {
         /*next({
            push: '/login'

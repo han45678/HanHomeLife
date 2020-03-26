@@ -22,7 +22,7 @@
           <td class="text-right">{{ item.price }}</td>
           <td class="text-center">
             <span v-if="item.is_enabled" class="text-success">啟用</span>
-            <span v-else>未啟用</span>
+            <span v-else class="text-danger">未啟用</span>
           </td>
           <td>{{ item.num }}{{ item.unit }}</td>
           <td>
@@ -38,7 +38,7 @@
 export default {
   data() {
     return {
-      products: []
+      products: [],
     };
   },
   methods: {
@@ -48,11 +48,10 @@ export default {
         console.log(response.data);
         this.products = response.data.products;
       });
-    },
-    openModel() {}
+    }
   },
   created() {
-    //務必要在下方加入created才會執行
+    //沒有執行事件觸發，務必要在下方加入created才會執行
     this.getProducts();
   }
 };
