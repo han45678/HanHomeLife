@@ -12,6 +12,20 @@
   </div>
 </template>
 
+<style scoped>
+  body{
+    background-color: #5d5d5d;
+  }
+  .sidebar .nav-link{
+    line-height: 50px;
+    font-size: 16px;
+    border-bottom: 1px solid #ccc;
+  }
+  *{
+    color: #fff;
+  }
+</style>
+
 <script>
 import sidebar from './sidebar';
 import navbar from './navbar';

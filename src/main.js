@@ -33,7 +33,7 @@ router.beforeEach((to, from, next) => {
            push: '/login'
         //老師不知道為甚麼要用next去包,這裡測試還是會觸發next
          });*/
-        swal('請先登入帳號');
+        swal("錯誤！", "尚未登入帳號！","error")
         router.push('login')
       }
     });

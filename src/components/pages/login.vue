@@ -63,6 +63,11 @@ export default {
 </script>
 
 <style scoped>
+h1{
+  text-align: center;
+  padding-top: 25%;
+  padding-bottom: 50px;
+}
 html,
 body {
   height: 100%;

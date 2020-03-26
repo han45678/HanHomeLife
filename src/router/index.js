@@ -15,12 +15,11 @@ const routes = [{
   },
   {
     path: '/',
-    name: 'Home',
+    name: 'home',
     component: Home,
-    meta: {
-      requiresAuth: true
-    } //這個網站需要登入
   },
+
+  //後台管理者登入
   {
     path: '/login',
     name: 'login',
@@ -28,7 +27,7 @@ const routes = [{
   },
   {
     path: '/admin',
-    name: 'HelloWorld',
+    name: 'admin',
     component: dashboard,
     children: [
       {
@@ -48,15 +47,7 @@ const routes = [{
         }, //內層需要每地都加才有用
       }
     ],
-  },
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  // }
+  }
 ]
 
 const router = new VueRouter({

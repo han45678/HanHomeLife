@@ -11,6 +11,19 @@
       </div>
       <div class="col-md-8">
         <div class="form-row">
+          <div class="form-group col-md-12 text-right">
+            <div class="form-check">
+              <input
+                type="checkbox"
+                v-model="tempProduct.is_enabled"
+                true-value="1"
+                false-value="0"
+                id="is_enabled"
+                class="form-check-input"
+              />
+              <label for="is_enabled" class="form-check-label">是否啟用</label>
+            </div>
+          </div>
           <div class="form-group col-md-12">
             <label for="title">標題</label>
             <input
@@ -70,19 +83,6 @@
               placeholder="請輸入圖片連結"
               class="form-control"
             />
-          </div>
-          <div class="form-group col-md-12">
-            <div class="form-check">
-              <input
-                type="checkbox"
-                v-model="tempProduct.is_enabled"
-                true-value="1"
-                false-value="0"
-                id="is_enabled"
-                class="form-check-input"
-              />
-              <label for="is_enabled" class="form-check-label">是否啟用</label>
-            </div>
           </div>
           <div class="col-md-12 text-center">
             <button type="button" class="btn btn-primary" @click="updateProduct">新增商品</button>
