@@ -48,7 +48,9 @@ export default {
     signin() {//登入事件
       const api = "https://vue-course-api.hexschool.io/admin/signin";
       //admin＝讀取cookie需要
-      this.$http.post(api, this.user).then(response => {
+      this.$http.post(api, this.user, {
+        withCredentials: true //correct
+      }).then(response => {
         console.log(response.data);
         if (response.data.success){
         //如果data裡的success是true就執行這個行為

@@ -1,19 +1,21 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import swal from 'sweetalert'
+import VueSweetalert2 from 'vue-sweetalert2'
+import 'sweetalert2/dist/sweetalert2.min.css'
 import App from './App.vue'
 import router from './router'
 import store from './store'
 
-
+Vue.use(VueSweetalert2);
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 
 axios.defaults.withCredentials = true; //允許Cookies
+axios.defaults.withCredentials = 'include';
 
 new Vue({
-   router,
+  router,
   store,
   render: h => h(App)
 }).$mount('#app')
@@ -33,7 +35,12 @@ router.beforeEach((to, from, next) => {
            push: '/login'
         //老師不知道為甚麼要用next去包,這裡測試還是會觸發next
          });*/
-        swal("錯誤！", "尚未登入帳號！","error")
+
+        Vue.swal({
+          icon: 'error',
+          title: '錯誤!',
+          text: '請先登入',
+        });
         router.push('login')
       }
     });

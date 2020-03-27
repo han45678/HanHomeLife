@@ -21,9 +21,7 @@
     font-size: 16px;
     border-bottom: 1px solid #ccc;
   }
-  *{
-    color: #fff;
-  }
+  
 </style>
 
 <script>

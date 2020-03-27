@@ -29,6 +29,9 @@ const routes = [{
     path: '/admin',
     name: 'admin',
     component: dashboard,
+    meta: {
+      requiresAuth: true
+    }, //內層需要每地都加才有用
     children: [
       {
         path: 'products', // 前面路徑都會加上斜線,內層勿加,不然找不到
