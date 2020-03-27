@@ -31,11 +31,6 @@ router.beforeEach((to, from, next) => {
         //swal('登入成功');
         next({});
       } else {
-        /*next({
-           push: '/login'
-        //老師不知道為甚麼要用next去包,這裡測試還是會觸發next
-         });*/
-
         Vue.swal({
           icon: 'error',
           title: '錯誤!',

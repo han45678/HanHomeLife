@@ -15,13 +15,25 @@
   </div>
 </template>
 
-<style>
-.sidebar-sticky{
-  background-color:#333940;
+<style scoped>
+.sidebar{
+      padding: 67px 0 0;
 }
-.sidebar .nav-link{
+.sidebar-sticky {
+  background-color: #333940;
+}
+.sidebar .nav-link {
   color: #fff;
   padding-left: 32px;
   font-size: 14px;
+  line-height: 50px;
+  font-size: 16px;
+  border-bottom: 1px solid #ccc;
+  transition: 0.6s;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #ccc;
+  color: #000;
 }
 </style>

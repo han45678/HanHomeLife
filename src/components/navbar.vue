@@ -16,7 +16,14 @@
     </nav>
   </div>
 </template>
-
+<style scoped>
+.navbar-brand{
+  font-size: 1.8rem;
+}
+.navbar .form-control {
+    margin-left: 15px;
+}
+</style>
 <script>
 export default {
   name: 'HelloWorld',
