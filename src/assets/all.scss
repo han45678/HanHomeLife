@@ -1,5 +1,17 @@
 @import "~bootstrap/scss/functions";
 @import "./helpers/variables";
+@import "./reset.scss";
 @import "~bootstrap/scss/bootstrap";
 @import "./dashboard";
+@import url('https://fonts.googleapis.com/css?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif+SC:400,500,600,700,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Anton&display=swap');
 
+body{
+    overflow-x: hidden;
+}
+.wrapper {
+    max-width: 1366px;
+    margin: auto;
+  }

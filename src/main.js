@@ -3,10 +3,13 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueSweetalert2 from 'vue-sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/css/swiper.css'
 import App from './App.vue'
 import router from './router'
 import store from './store'
 
+Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
 Vue.use(VueSweetalert2);
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false

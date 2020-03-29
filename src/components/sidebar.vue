@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <nav id="sidebar" class="col-md-2 d-none d-md-block bg-light sidebar">
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
@@ -16,8 +16,8 @@
 </template>
 
 <style scoped>
-.sidebar{
-      padding: 67px 0 0;
+.sidebar {
+  padding: 67px 0 0;
 }
 .sidebar-sticky {
   background-color: #333940;
@@ -35,5 +35,10 @@
 .sidebar .nav-link:hover {
   background-color: #ccc;
   color: #000;
+}
+
+#sidebar.active {
+  display: block !important;
+  padding: 142px 0 0;
 }
 </style>

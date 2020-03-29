@@ -35,11 +35,7 @@
             {{ item.num }}{{ item.unit }}
           </td>
           <td class="operating text-center">
-            <button
-              type="button"
-              class="btn btn-info mr-2"
-              @click="openModel(item.id)"
-            >
+            <button type="button" class="btn btn-info mr-2" @click="edit()">
               編輯
             </button>
             <button
@@ -167,19 +163,7 @@ export default {
       document.getElementById("edit").classList.toggle("active");
     },
     edit() {
-      let url = `https://vue-course-api.hexschool.io/api/han_vue/admin/product/${this.tempProduct.id}`;
-      this.$http[this.httpMethods](url, { data: this.tempProduct })
-        .then(response => {
-          if (response.data.success) {
-            // 確保資料更改或建立在隱藏 Model
-            document.getElementById("edit").classList.add("active");
-            this.getProduct(); // 新增或修改之後就重新取的資料
-          }
-        })
-        .catch(error => {
-          console.log(error);
-          document.getElementById("edit").classList.add("active");
-        });
+      //this.$router.push("edit");
     }
   },
   created() {
@@ -217,7 +201,7 @@ export default {
   }
 }
 .photo img {
-  max-width: 100px;
+  max-width: 50px;
   margin: auto;
 }
 table thead {
