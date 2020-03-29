@@ -12,7 +12,7 @@ Vue.use(VueRouter)
 
 const routes = [{
     path: '*',
-    redirect: 'login'
+    redirect: '/'
     //避免進入沒定義的頁面(在網址列上亂打)
   },
   {

@@ -5,7 +5,7 @@
         <ul>
           <li><a href="">關於我們</a></li>
           <li><a href="">產品專區</a></li>
-          <li><a href="">使用者專區</a></li>
+          <li><router-link to="/login">使用者專區</router-link></li>
         </ul>
         <div id="time">
           <p >
