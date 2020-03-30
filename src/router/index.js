@@ -7,6 +7,8 @@ import products from '../components/pages/products.vue'
 import add from '../components/pages/add.vue'
 import edit from '../components/pages/edit.vue'
 import About from '../views/About.vue'
+import simulationCustomerOrders from '../components/pages/simulation-CustomerOrders.vue'
+import simulationCart from '../components/pages/simulation-cart.vue'
 
 Vue.use(VueRouter)
 
@@ -64,7 +66,22 @@ const routes = [{
           requiresAuth: true
         }, //內層需要每地都加才有用
       },
-      
+      {
+        path: 'simulation-customer-orders', // 前面路徑都會加上斜線,內層勿加,不然找不到
+        name: 'simulation-CustomerOrders',
+        component: simulationCustomerOrders,
+        meta: {
+          requiresAuth: true
+        }, //內層需要每地都加才有用
+      },
+      {
+        path: 'simulation-cart', // 前面路徑都會加上斜線,內層勿加,不然找不到
+        name: 'simulation-cart',
+        component: simulationCart,
+        meta: {
+          requiresAuth: true
+        }, //內層需要每地都加才有用
+      }
     ],
   }
 ]

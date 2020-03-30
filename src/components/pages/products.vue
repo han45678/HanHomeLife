@@ -23,8 +23,8 @@
           </td>
           <td class="classification" data-th="分類：">{{ item.category }}</td>
           <td class="name" data-th="產品名稱：">{{ item.title }}</td>
-          <td class="original text-right" data-th="原價：">{{ item.origin_price }}</td>
-          <td class="price text-right" data-th="售價：">{{ item.price }}</td>
+          <td class="original text-right" data-th="原價：">${{ item.origin_price }}</td>
+          <td class="price text-right" data-th="售價：">${{ item.price }}</td>
           <td class="enable text-center" data-th="是否啟用：">
             <span v-if="item.is_enabled" class="text-success">啟用</span>
             <span v-else class="text-danger">未啟用</span>
