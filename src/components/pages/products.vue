@@ -23,128 +23,47 @@
           </td>
           <td class="classification" data-th="分類：">{{ item.category }}</td>
           <td class="name" data-th="產品名稱：">{{ item.title }}</td>
-          <td class="original text-right" data-th="原價：">
-            {{ item.origin_price }}
-          </td>
+          <td class="original text-right" data-th="原價：">{{ item.origin_price }}</td>
           <td class="price text-right" data-th="售價：">{{ item.price }}</td>
           <td class="enable text-center" data-th="是否啟用：">
             <span v-if="item.is_enabled" class="text-success">啟用</span>
             <span v-else class="text-danger">未啟用</span>
           </td>
-          <td class="quantity" data-th="數量：">
-            {{ item.num }}{{ item.unit }}
-          </td>
+          <td class="quantity" data-th="數量：">{{ item.num }}{{ item.unit }}</td>
           <td class="operating text-center">
-            <button
-              type="button"
-              class="btn btn-info mr-2"
-              @click="openModel(item.id)"
-            >
-              編輯
-            </button>
-            <button
-              type="button"
-              class="btn btn-danger"
-              @click="removeProducts(item.id)"
-            >
-              刪除
-            </button>
+            <button type="button" class="btn btn-info mr-2" @click="openModel(item.id)">編輯</button>
+            <button type="button" class="btn btn-danger" @click="removeProducts(item.id)">刪除</button>
           </td>
         </tr>
       </tbody>
     </table>
-    <div id="edit">
-      <div id="edit_content">
-        <div class="row">
-          <div class="col-md-12 text-center mb-1">
-            <h1>編輯產品</h1>
-          </div>
-          <div class="col-md-12">
-            <div class="form-row">
-              <div class="form-group col-md-12 text-right">
-                <div class="form-check">
-                  <input
-                    type="checkbox"
-                    true-value="1"
-                    false-value="0"
-                    id="is_enabled"
-                    class="form-check-input"
-                  />
-                  <label for="is_enabled" class="form-check-label"
-                    >是否啟用</label
-                  >
-                </div>
-              </div>
-              <div class="form-group col-md-12">
-                <label for="title">標題</label>
-                <input
-                  type="text"
-                  id="title"
-                  placeholder="請輸入標題"
-                  class="form-control"
-                />
-              </div>
-              <div class="form-group col-md-6">
-                <label for="category">分類</label>
-                <input
-                  type="text"
-                  id="category"
-                  placeholder="請輸入分類"
-                  class="form-control"
-                />
-              </div>
-              <div class="form-group col-md-6">
-                <label for="price">單位</label>
-                <input
-                  type="unit"
-                  id="unit"
-                  placeholder="請輸入單位"
-                  class="form-control"
-                />
-              </div>
-              <div class="form-group col-md-6">
-                <label for="origin_price">原價</label>
-                <input
-                  type="number"
-                  id="origin_price"
-                  placeholder="請輸入原價"
-                  class="form-control"
-                />
-              </div>
-              <div class="form-group col-md-6">
-                <label for="price">售價</label>
-                <input
-                  type="number"
-                  id="price"
-                  placeholder="請輸入售價"
-                  class="form-control"
-                />
-              </div>
-              <div class="form-group col-md-12">
-                <label for="price">輸入圖片網址</label>
-                <input
-                  type="text"
-                  id="image"
-                  placeholder="請輸入圖片連結"
-                  class="form-control"
-                />
-              </div>
-              <div class="form-group col-md-12 text-center">
-                <img src="" />
-              </div>
-              <div class="col-md-12 text-center">
-                <button type="button" class="btn btn-primary">確定修改</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item" v-for="pang in pagination.total_pages" :key="pang" :class="{'active':pagination===page}">
+          <a class="page-link" href="#">{{pang}}</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav> -->
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      isNew: false
+    };
+  },
   methods: {
     removeProducts(id) {
       const self = this;
@@ -162,25 +81,16 @@ export default {
         .catch(error => {
           console.log(error);
         });
-    },
-    openModel() {
-      document.getElementById("edit").classList.toggle("active");
-    },
-    edit() {
-      let url = `https://vue-course-api.hexschool.io/api/han_vue/admin/product/${this.tempProduct.id}`;
-      this.$http[this.httpMethods](url, { data: this.tempProduct })
-        .then(response => {
-          if (response.data.success) {
-            // 確保資料更改或建立在隱藏 Model
-            document.getElementById("edit").classList.add("active");
-            this.getProduct(); // 新增或修改之後就重新取的資料
-          }
-        })
-        .catch(error => {
-          console.log(error);
-          document.getElementById("edit").classList.add("active");
-        });
     }
+    // openModel(isNew, item) {
+    //   document.getElementById("edit").classList.toggle("active");
+    // },
+    // goEdit(isNew, item) {
+    //   this.tempProduct = Object.assign({}, item); //在修改資料這裡需要這麼做，避免物件物件互相參考
+    //   //Object.assign 是es6寫法，可將後方的item寫入空的物件{}裡面
+    //   this.isNew = false;
+    //    this.$router.push('edit')
+    // },
   },
   created() {
     //沒有執行事件觸發，務必要在下方加入created才會執行

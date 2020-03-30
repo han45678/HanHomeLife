@@ -9,7 +9,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {//變數
-    products: []
+    products: [],
+    pagination:{},
   },
   mutations: {//宣告
     SET_PRODUCT(state, productList) {
@@ -22,6 +23,7 @@ export default new Vuex.Store({
         .then(resp => {
           console.log( resp.data.products);
           commit('SET_PRODUCT', resp.data.products);
+          //this.pagination = resp.data.pagination;
         })
     }
   },

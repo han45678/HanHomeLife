@@ -44,7 +44,7 @@ footer {
     flex-wrap: wrap;
     align-items: center; 
     ul {
-      padding: 0px 0 100px 0;
+      padding: 0px 0 50px 0;
       margin-bottom: 0;
       width: 50%;
       li {
