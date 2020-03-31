@@ -1,5 +1,92 @@
 <template>
   <div>
+    <div v-if="isEdit" style="margin-top: 30px">
+      <div class="col-md-8">
+        <div class="form-row">
+          <div class="form-group col-md-12 text-right">
+            <div class="form-check">
+              <input
+                type="checkbox"
+                v-model="edit.is_enabled"
+                true-value="1"
+                false-value="0"
+                id="is_enabled"
+                class="form-check-input"
+              />
+              <label for="is_enabled" class="form-check-label">是否啟用</label>
+            </div>
+          </div>
+          <div class="form-group col-md-12">
+            <label for="title">標題</label>
+            <input
+              type="text"
+              id="title"
+              v-model="edit.title"
+              placeholder="請輸入標題"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="category">分類</label>
+            <input
+              type="text"
+              id="category"
+              v-model="edit.category"
+              placeholder="請輸入分類"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="price">單位</label>
+            <input
+              type="unit"
+              id="unit"
+              v-model="edit.unit"
+              placeholder="請輸入單位"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="origin_price">原價</label>
+            <input
+              type="number"
+              id="origin_price"
+              v-model="edit.origin_price"
+              placeholder="請輸入原價"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="price">售價</label>
+            <input
+              type="number"
+              id="price"
+              v-model="edit.price"
+              placeholder="請輸入售價"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="price">輸入圖片網址</label>
+            <input
+              type="text"
+              id="image"
+              v-model="edit.imageUrl"
+              placeholder="請輸入圖片連結"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group col-md-12 text-center">
+            <img :src="edit.imageUrl" />
+          </div>
+          <div class="col-md-12 text-center">
+            <button type="button" class="btn btn-primary" @click="editSubmit">
+              新增商品
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="text-right mt-4">
       <router-link to="add">
         <button type="button" class="btn btn-primary mt-3">新增產品</button>
@@ -23,16 +110,32 @@
           </td>
           <td class="classification" data-th="分類：">{{ item.category }}</td>
           <td class="name" data-th="產品名稱：">{{ item.title }}</td>
-          <td class="original text-right" data-th="原價：">${{ item.origin_price }}</td>
+          <td class="original text-right" data-th="原價：">
+            ${{ item.origin_price }}
+          </td>
           <td class="price text-right" data-th="售價：">${{ item.price }}</td>
           <td class="enable text-center" data-th="是否啟用：">
             <span v-if="item.is_enabled" class="text-success">啟用</span>
             <span v-else class="text-danger">未啟用</span>
           </td>
-          <td class="quantity" data-th="數量：">{{ item.num }}{{ item.unit }}</td>
+          <td class="quantity" data-th="數量：">
+            {{ item.num }}{{ item.unit }}
+          </td>
           <td class="operating text-center">
-            <button type="button" class="btn btn-info mr-2" @click="openModel(item.id)">編輯</button>
-            <button type="button" class="btn btn-danger" @click="removeProducts(item.id)">刪除</button>
+            <button
+              type="button"
+              class="btn btn-info mr-2"
+              @click="openModel(item.id)"
+            >
+              編輯
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              @click="removeProducts(item.id)"
+            >
+              刪除
+            </button>
           </td>
         </tr>
       </tbody>
@@ -58,13 +161,37 @@
 </template>
 
 <script>
+/* eslint-disable no-unused-vars */
+
 export default {
   data() {
     return {
-      isNew: false
+      isNew: false,
+      isEdit: true,
+      edit: {
+        id: "",
+        title: "",
+        catage: "",
+        unit: "",
+        oPrice: 0,
+        sPrice: 0
+      }
     };
   },
   methods: {
+    editSubmit() {
+      this.$http
+        .put(
+          `https://vue-course-api.hexschool.io/api/han_vue/admin/product/${this.edit.id}`,
+          {
+            data: {
+              title: this.edit.title
+            }
+          }
+        )
+        .then(resp => console.log(resp))
+        .catch(err => console.log(err));
+    },
     removeProducts(id) {
       const self = this;
       const api = `https://vue-course-api.hexschool.io/api/han_vue/admin/product/${id}`;
@@ -81,16 +208,23 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    openModel(itemId) {
+      //this.isEdit = true;
+      // console.log(this.$store.state.products);
+      this.edit.id = itemId;
+      let product = this.$store.state.products.filter(
+        product => product.id === itemId
+      )[0];
+
+      this.edit.title = product.title;
+      this.edit.is_enabled = product.is_enabled;
+      this.edit.category = product.category;
+      this.edit.unit = product.unit;
+      this.edit.origin_price = product.origin_price;
+      this.edit.price = product.price;
+      this.edit.imageUrl = product.imageUrl;
     }
-    // openModel(isNew, item) {
-    //   document.getElementById("edit").classList.toggle("active");
-    // },
-    // goEdit(isNew, item) {
-    //   this.tempProduct = Object.assign({}, item); //在修改資料這裡需要這麼做，避免物件物件互相參考
-    //   //Object.assign 是es6寫法，可將後方的item寫入空的物件{}裡面
-    //   this.isNew = false;
-    //    this.$router.push('edit')
-    // },
   },
   created() {
     //沒有執行事件觸發，務必要在下方加入created才會執行
@@ -110,9 +244,11 @@ export default {
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 1030;
   display: none;
+
   &.active {
     display: block;
   }
+
   #edit_content {
     max-width: 500px;
     height: 565px;
@@ -126,13 +262,16 @@ export default {
     padding: 30px;
   }
 }
+
 .photo img {
   max-width: 100px;
   margin: auto;
 }
+
 table thead {
   font-size: 18px;
 }
+
 table tbody tr td {
   font-size: 16px;
   vertical-align: middle !important;
@@ -142,12 +281,15 @@ table tbody tr td {
   table {
     margin-top: 0 !important;
   }
+
   table thead {
     display: none;
   }
+
   table tbody {
     display: flex;
     flex-wrap: wrap;
+
     tr {
       width: 30%;
       margin: 30px 1.5%;
@@ -156,10 +298,12 @@ table tbody tr td {
       border-radius: 15px;
       display: flex;
       flex-wrap: wrap;
+
       td,
       td.text-center {
         width: 100%;
         text-align: right !important;
+
         &::before {
           content: attr(data-th);
           width: 100%;
@@ -171,27 +315,33 @@ table tbody tr td {
       }
     }
   }
+
   .name {
     order: 1;
     border: none;
     text-align: center !important;
     font-size: 24px;
     padding-top: 0;
+
     &::before {
       display: none;
     }
   }
+
   .photo {
     order: 2;
     text-align: center !important;
+
     img {
       width: 100%;
       max-width: 250px;
     }
+
     &::before {
       display: none;
     }
   }
+
   .price,
   .classification,
   .original,
@@ -202,6 +352,7 @@ table tbody tr td {
     order: 3;
   }
 }
+
 @media only screen and (max-width: 1024px) {
   table tbody {
     tr {
@@ -209,13 +360,16 @@ table tbody tr td {
     }
   }
 }
+
 @media only screen and (max-width: 768px) {
   main {
     padding-top: 67px;
   }
+
   table tbody tr td:before {
     margin-bottom: 15px;
   }
+
   table tbody {
     tr {
       width: 100%;
