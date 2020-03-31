@@ -5,12 +5,20 @@
         <ul class="nav flex-column">
           <li class="nav-item">
             <router-link class="nav-link" to="products">產品列表</router-link>
+            <!-- <ol>
+              <li>全部</li>
+              <li>氣炸鍋</li>
+              <li>烤箱</li>
+              <li>果汁機</li>
+              <li>刀具</li>
+              <li>其他</li>
+            </ol> -->
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="add">新增產品</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="">優惠卷</router-link>
+            <router-link class="nav-link" to>優惠卷</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="simulation-customer-orders">模擬訂單</router-link>
@@ -31,13 +39,16 @@
 .sidebar-sticky {
   background-color: #333940;
 }
+.sidebar li {
+  border-bottom: 1px solid #ccc;
+}
 .sidebar .nav-link {
   color: #fff;
   padding-left: 32px;
   font-size: 14px;
   line-height: 50px;
   font-size: 16px;
-  border-bottom: 1px solid #ccc;
+
   transition: 0.6s;
 }
 

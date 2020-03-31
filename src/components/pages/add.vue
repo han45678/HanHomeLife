@@ -36,23 +36,34 @@
           </div>
           <div class="form-group col-md-6">
             <label for="category">分類</label>
-            <input
-              type="text"
+            <select
+              class="form-control"
+              type="unit"
               id="category"
               v-model="tempProduct.category"
               placeholder="請輸入分類"
-              class="form-control"
-            />
+            >
+              <option value="氣炸鍋">氣炸鍋</option>
+              <option value="烤箱">烤箱</option>
+              <option value="果汁機">果汁機</option>
+              <option value="刀具">刀具</option>
+              <option value="其他">其他</option>
+            </select>
           </div>
           <div class="form-group col-md-6">
             <label for="price">單位</label>
-            <input
+            <select
+              class="form-control"
               type="unit"
               id="unit"
               v-model="tempProduct.unit"
               placeholder="請輸入單位"
-              class="form-control"
-            />
+            >
+              <option value="台">台</option>
+              <option value="組">組</option>
+              <option value="個">個</option>
+              <option value="把">把</option>
+            </select>
           </div>
           <div class="form-group col-md-6">
             <label for="origin_price">原價</label>
@@ -126,15 +137,17 @@ export default {
     uploadFile() {
       const uploadedFile = this.$refs.files.files[0];
       const formData = new FormData();
-      formData.append('file-to-upload', uploadedFile);
-      const api =`https://vue-course-api.hexschool.io/api/han_vue/admin/upload`;
-      this.$http.post(api, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
-      }).then((res)=>{
-        console.log(res.data);
-      })
+      formData.append("file-to-upload", uploadedFile);
+      const api = `https://vue-course-api.hexschool.io/api/han_vue/admin/upload`;
+      this.$http
+        .post(api, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        .then(res => {
+          console.log(res.data);
+        });
     }
   }
 };

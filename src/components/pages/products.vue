@@ -1,88 +1,92 @@
 <template>
   <div>
-    <div v-if="isEdit" style="margin-top: 30px">
-      <div class="col-md-8">
-        <div class="form-row">
-          <div class="form-group col-md-12 text-right">
-            <div class="form-check">
-              <input
-                type="checkbox"
-                v-model="edit.is_enabled"
-                true-value="1"
-                false-value="0"
-                id="is_enabled"
-                class="form-check-input"
-              />
-              <label for="is_enabled" class="form-check-label">是否啟用</label>
+    <div id="isEdit">
+      <div id="isEdit_content">
+        <div class="col-md-12">
+          <h3>修改訂單</h3>
+        </div>
+        <div class="col-md-12">
+          <div class="form-row">
+            <div class="form-group col-md-12 text-right">
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  v-model="edit.is_enabled"
+                  true-value="1"
+                  false-value="0"
+                  id="is_enabled"
+                  class="form-check-input"
+                />
+                <label for="is_enabled" class="form-check-label">是否啟用</label>
+              </div>
             </div>
-          </div>
-          <div class="form-group col-md-12">
-            <label for="title">標題</label>
-            <input
-              type="text"
-              id="title"
-              v-model="edit.title"
-              placeholder="請輸入標題"
-              class="form-control"
-            />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="category">分類</label>
-            <input
-              type="text"
-              id="category"
-              v-model="edit.category"
-              placeholder="請輸入分類"
-              class="form-control"
-            />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="price">單位</label>
-            <input
-              type="unit"
-              id="unit"
-              v-model="edit.unit"
-              placeholder="請輸入單位"
-              class="form-control"
-            />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="origin_price">原價</label>
-            <input
-              type="number"
-              id="origin_price"
-              v-model="edit.origin_price"
-              placeholder="請輸入原價"
-              class="form-control"
-            />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="price">售價</label>
-            <input
-              type="number"
-              id="price"
-              v-model="edit.price"
-              placeholder="請輸入售價"
-              class="form-control"
-            />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="price">輸入圖片網址</label>
-            <input
-              type="text"
-              id="image"
-              v-model="edit.imageUrl"
-              placeholder="請輸入圖片連結"
-              class="form-control"
-            />
-          </div>
-          <div class="form-group col-md-12 text-center">
-            <img :src="edit.imageUrl" />
-          </div>
-          <div class="col-md-12 text-center">
-            <button type="button" class="btn btn-primary" @click="editSubmit">
-              新增商品
-            </button>
+            <div class="form-group col-md-12">
+              <label for="title">標題</label>
+              <input
+                type="text"
+                id="title"
+                v-model="edit.title"
+                placeholder="請輸入標題"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="category">分類</label>
+              <input
+                type="text"
+                id="category"
+                v-model="edit.category"
+                placeholder="請輸入分類"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="price">單位</label>
+              <input
+                type="unit"
+                id="unit"
+                v-model="edit.unit"
+                placeholder="請輸入單位"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="origin_price">原價</label>
+              <input
+                type="number"
+                id="origin_price"
+                v-model="edit.origin_price"
+                placeholder="請輸入原價"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="price">售價</label>
+              <input
+                type="number"
+                id="price"
+                v-model="edit.price"
+                placeholder="請輸入售價"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="price">輸入圖片網址</label>
+              <input
+                type="text"
+                id="image"
+                v-model="edit.imageUrl"
+                placeholder="請輸入圖片連結"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group col-md-12 text-center">
+              <img :src="edit.imageUrl" />
+            </div>
+            <div class="col-md-12 text-center">
+              <button type="button" class="btn btn-primary" @click="editSubmit">修改</button>
+              <button type="button" class="btn btn-danger" @click="CancelEdit">取消</button>
+            </div>
           </div>
         </div>
       </div>
@@ -110,32 +114,16 @@
           </td>
           <td class="classification" data-th="分類：">{{ item.category }}</td>
           <td class="name" data-th="產品名稱：">{{ item.title }}</td>
-          <td class="original text-right" data-th="原價：">
-            ${{ item.origin_price }}
-          </td>
+          <td class="original text-right" data-th="原價：">${{ item.origin_price }}</td>
           <td class="price text-right" data-th="售價：">${{ item.price }}</td>
           <td class="enable text-center" data-th="是否啟用：">
-            <span v-if="item.is_enabled" class="text-success">啟用</span>
+            <span v-if="item.is_enabled === '1'" class="text-success">啟用</span>
             <span v-else class="text-danger">未啟用</span>
           </td>
-          <td class="quantity" data-th="數量：">
-            {{ item.num }}{{ item.unit }}
-          </td>
+          <td class="quantity" data-th="數量：">{{ item.num }}{{ item.unit }}</td>
           <td class="operating text-center">
-            <button
-              type="button"
-              class="btn btn-info mr-2"
-              @click="openModel(item.id)"
-            >
-              編輯
-            </button>
-            <button
-              type="button"
-              class="btn btn-danger"
-              @click="removeProducts(item.id)"
-            >
-              刪除
-            </button>
+            <button type="button" class="btn btn-info mr-2" @click="openModel(item.id)">編輯</button>
+            <button type="button" class="btn btn-danger" @click="removeProducts(item.id)">刪除</button>
           </td>
         </tr>
       </tbody>
@@ -156,40 +144,52 @@
           </a>
         </li>
       </ul>
-    </nav> -->
+    </nav>-->
   </div>
 </template>
 
 <script>
 /* eslint-disable no-unused-vars */
-
 export default {
   data() {
     return {
       isNew: false,
-      isEdit: true,
       edit: {
         id: "",
+        is_enabled: "0",
         title: "",
-        catage: "",
+        category: "",
         unit: "",
-        oPrice: 0,
-        sPrice: 0
+        origin_price: "",
+        price: "",
+        imageUrl: ""
       }
     };
   },
   methods: {
     editSubmit() {
-      this.$http
+      const self = this;
+      self.$http
         .put(
           `https://vue-course-api.hexschool.io/api/han_vue/admin/product/${this.edit.id}`,
           {
             data: {
-              title: this.edit.title
+              is_enabled: this.edit.is_enabled,
+              title: this.edit.title,
+              category: this.edit.category,
+              unit: this.edit.unit,
+              origin_price: this.edit.origin_price,
+              price: this.edit.price,
+              imageUrl: this.edit.imageUrl
             }
           }
         )
-        .then(resp => console.log(resp))
+        .then(resp => {
+          console.log(resp);
+          document.getElementById("isEdit").classList.remove("active");
+          self.$store.dispatch("getAllProduct");
+          self.$swal("修改成功！", "商品已修改完成", "success");
+        })
         .catch(err => console.log(err));
     },
     removeProducts(id) {
@@ -212,6 +212,7 @@ export default {
     openModel(itemId) {
       //this.isEdit = true;
       // console.log(this.$store.state.products);
+      document.getElementById("isEdit").classList.add("active");
       this.edit.id = itemId;
       let product = this.$store.state.products.filter(
         product => product.id === itemId
@@ -224,6 +225,9 @@ export default {
       this.edit.origin_price = product.origin_price;
       this.edit.price = product.price;
       this.edit.imageUrl = product.imageUrl;
+    },
+    CancelEdit() {
+      document.getElementById("isEdit").classList.remove("active");
     }
   },
   created() {
@@ -234,7 +238,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-#edit {
+#isEdit {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -249,17 +253,24 @@ export default {
     display: block;
   }
 
-  #edit_content {
+  #isEdit_content {
     max-width: 500px;
-    height: 565px;
+    height: auto;
     background: #fff;
     position: fixed;
-    top: 0;
-    bottom: 0;
+    top: 50%;
+    transform: translateY(-50%);
     left: 0;
     right: 0;
     margin: auto;
     padding: 30px;
+    img {
+      max-height: 250px;
+      max-width: 100%;
+    }
+    button {
+      margin: 15px 5px 0 5px;
+    }
   }
 }
 

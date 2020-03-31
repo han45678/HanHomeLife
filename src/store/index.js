@@ -25,37 +25,13 @@ export default new Vuex.Store({
       dispatch,
       state
     }) {
-      axios.get('https://vue-course-api.hexschool.io/api/han_vue/products')
+      axios.get('https://vue-course-api.hexschool.io/api/han_vue/products/all')
         .then(resp => {
           console.log(resp.data.products);
           commit('SET_PRODUCT', resp.data.products);
           //this.pagination = resp.data.pagination;
         })
     },
-    // getProducts({
-    //   commit,
-    //   dispatch,
-    //   state
-    // }) {
-    //   const url = `https://vue-course-api.hexschool.io/api/han_vue/products?page=:page`;
-    //   axios.get(url).then(resp => {
-    //     //this.products = res.data.products;
-    //     console.log(resp);
-    //     commit('SET_PRODUCT', resp.data.products);
-    //   });
-    // },
-    // getProduct(id, {
-    //   commit,
-    //   dispatch,
-    //   state
-    // }) {
-    //   const url = `https://vue-course-api.hexschool.io/api/han_vue/product/${id}`;
-    //   axios.get(url).then(resp => {
-    //     //this.product = res.data.product;
-    //     console.log(resp.data.product);
-    //     commit('SET_PRODUCT', resp.data.product);
-    //   });
-    // }
   },
   getters: {
 

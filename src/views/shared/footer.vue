@@ -4,10 +4,10 @@
       <div class="wrapper">
         <ul>
           <li>
-            <a href>關於我們</a>
+            <router-link to="/about">關於我們</router-link>
           </li>
           <li>
-            <a href>產品專區</a>
+            <router-link to="/AllProducts">產品專區</router-link>
           </li>
           <li>
             <router-link to="/login">管理者專區</router-link>

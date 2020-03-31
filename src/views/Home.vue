@@ -20,98 +20,19 @@
           氣炸鍋
           <span class="subtitle">Gas fryer</span>
         </h2>
-        <div class="item">
-          <a href>
-            <div class="photo">
-              <img src="https://d.ecimg.tw/items/DMAG5EA900AEOT0/000001_1575951205.jpg" />
-            </div>
-            <div class="title">
-              <h3>
-                科帥大容量5.5L 氣炸鍋 AF606空炸鍋 液晶觸控氣炸鍋 氣炸鍋
-                雙鍋+超值12件8吋烘培組
-              </h3>
-            </div>
-            <div class="original">
-              原價
-              <span>$</span>3990
-            </div>
-            <div class="price">
-              售價
-              <span>$</span>2880
-            </div>
-          </a>
-        </div>
-        <div class="item">
-          <a href>
-            <div class="photo">
-              <img src="https://d.ecimg.tw/items/DMAG5EA900AEOT0/000001_1575951205.jpg" />
-            </div>
-            <div class="title">
-              <h3>
-                科帥大容量5.5L 氣炸鍋 AF606空炸鍋 液晶觸控氣炸鍋 氣炸鍋
-                雙鍋+超值12件8吋烘培組
-              </h3>
-            </div>
-            <div class="original">
-              原價
-              <span>$</span>3990
-            </div>
-            <div class="price">
-              售價
-              <span>$</span>2880
-            </div>
-          </a>
-        </div>
-        <div class="item">
-          <a href>
-            <div class="photo">
-              <img src="https://d.ecimg.tw/items/DMAG5EA900AEOT0/000001_1575951205.jpg" />
-            </div>
-            <div class="title">
-              <h3>
-                科帥大容量5.5L 氣炸鍋 AF606空炸鍋 液晶觸控氣炸鍋 氣炸鍋
-                雙鍋+超值12件8吋烘培組
-              </h3>
-            </div>
-            <div class="original">
-              原價
-              <span>$</span>3990
-            </div>
-            <div class="price">
-              售價
-              <span>$</span>2880
-            </div>
-          </a>
-        </div>
-        <div class="item">
-          <a href>
-            <div class="photo">
-              <img src="https://d.ecimg.tw/items/DMAG5EA900AEOT0/000001_1575951205.jpg" />
-            </div>
-            <div class="title">
-              <h3>
-                科帥大容量5.5L 氣炸鍋 AF606空炸鍋 液晶觸控氣炸鍋 氣炸鍋
-                雙鍋+超值12件8吋烘培組
-              </h3>
-            </div>
-            <div class="original">
-              原價
-              <span>$</span>3990
-            </div>
-            <div class="price">
-              售價
-              <span>$</span>2880
-            </div>
-          </a>
-        </div>
-        <!-- <div class="item" v-for="item in $store.state.products" :key="item.id">
+        <div
+          class="item"
+          v-for="item in productsUser.slice(0, 4)"
+          :key="item.id"
+          v-show="item.category == '氣炸鍋' && item.is_enabled == '1'"
+        >
           <div class="photo">
             <img :src="item.imageUrl" />
           </div>
-          <div class="title">{{ item.title }}</div>
-          <div class="original">{{ item.origin_price }}</div>
-          <div class="price">{{ item.price }}</div>
-        </div>-->
+          <div class="category text-center">{{item.category}}</div>
+          <div class="title text-center">{{ item.title }}</div>
+          <div class="price text-center">NT ＄{{ item.price }}</div>
+        </div>
       </div>
       <div id="discount" class="back">
         <!--優惠活動-->
@@ -126,91 +47,20 @@
       <div id="oven" class="product_carousel wrapper">
         <h2>
           烤箱
-          <span class="subtitle">Gas fryer</span>
+          <span class="subtitle">Oven</span>
         </h2>
-        <div class="item">
-          <a href>
-            <div class="photo">
-              <img src="https://d.ecimg.tw/items/DMAG5EA900AEOT0/000001_1575951205.jpg" />
-            </div>
-            <div class="title">
-              <h3>
-                科帥大容量5.5L 氣炸鍋 AF606空炸鍋 液晶觸控氣炸鍋 氣炸鍋
-                雙鍋+超值12件8吋烘培組
-              </h3>
-            </div>
-            <div class="original">
-              原價
-              <span>$</span>3990
-            </div>
-            <div class="price">
-              售價
-              <span>$</span>2880
-            </div>
-          </a>
-        </div>
-        <div class="item">
-          <a href>
-            <div class="photo">
-              <img src="https://d.ecimg.tw/items/DMAG5EA900AEOT0/000001_1575951205.jpg" />
-            </div>
-            <div class="title">
-              <h3>
-                科帥大容量5.5L 氣炸鍋 AF606空炸鍋 液晶觸控氣炸鍋 氣炸鍋
-                雙鍋+超值12件8吋烘培組
-              </h3>
-            </div>
-            <div class="original">
-              原價
-              <span>$</span>3990
-            </div>
-            <div class="price">
-              售價
-              <span>$</span>2880
-            </div>
-          </a>
-        </div>
-        <div class="item">
-          <a href>
-            <div class="photo">
-              <img src="https://d.ecimg.tw/items/DMAG5EA900AEOT0/000001_1575951205.jpg" />
-            </div>
-            <div class="title">
-              <h3>
-                科帥大容量5.5L 氣炸鍋 AF606空炸鍋 液晶觸控氣炸鍋 氣炸鍋
-                雙鍋+超值12件8吋烘培組
-              </h3>
-            </div>
-            <div class="original">
-              原價
-              <span>$</span>3990
-            </div>
-            <div class="price">
-              售價
-              <span>$</span>2880
-            </div>
-          </a>
-        </div>
-        <div class="item">
-          <a href>
-            <div class="photo">
-              <img src="https://d.ecimg.tw/items/DMAG5EA900AEOT0/000001_1575951205.jpg" />
-            </div>
-            <div class="title">
-              <h3>
-                科帥大容量5.5L 氣炸鍋 AF606空炸鍋 液晶觸控氣炸鍋 氣炸鍋
-                雙鍋+超值12件8吋烘培組
-              </h3>
-            </div>
-            <div class="original">
-              原價
-              <span>$</span>3990
-            </div>
-            <div class="price">
-              售價
-              <span>$</span>2880
-            </div>
-          </a>
+        <div
+          class="item"
+          v-for="(item) in productsUser.slice(0, 4)"
+          :key="item.id"
+          v-show="item.category == '烤箱' && item.is_enabled == '1'"
+        >
+          <div class="photo">
+            <img :src="item.imageUrl" />
+          </div>
+          <div class="category text-center">{{item.category}}</div>
+          <div class="title text-center">{{ item.title }}</div>
+          <div class="price text-center">NT ＄{{ item.price }}</div>
         </div>
       </div>
       <div id="about" class="back">
@@ -226,91 +76,20 @@
       <div id="juicer" class="product_carousel wrapper">
         <h2>
           果汁機
-          <span class="subtitle">Gas fryer</span>
+          <span class="subtitle">Juicer</span>
         </h2>
-        <div class="item">
-          <a href>
-            <div class="photo">
-              <img src="https://d.ecimg.tw/items/DMAG5EA900AEOT0/000001_1575951205.jpg" />
-            </div>
-            <div class="title">
-              <h3>
-                科帥大容量5.5L 氣炸鍋 AF606空炸鍋 液晶觸控氣炸鍋 氣炸鍋
-                雙鍋+超值12件8吋烘培組
-              </h3>
-            </div>
-            <div class="original">
-              原價
-              <span>$</span>3990
-            </div>
-            <div class="price">
-              售價
-              <span>$</span>2880
-            </div>
-          </a>
-        </div>
-        <div class="item">
-          <a href>
-            <div class="photo">
-              <img src="https://d.ecimg.tw/items/DMAG5EA900AEOT0/000001_1575951205.jpg" />
-            </div>
-            <div class="title">
-              <h3>
-                科帥大容量5.5L 氣炸鍋 AF606空炸鍋 液晶觸控氣炸鍋 氣炸鍋
-                雙鍋+超值12件8吋烘培組
-              </h3>
-            </div>
-            <div class="original">
-              原價
-              <span>$</span>3990
-            </div>
-            <div class="price">
-              售價
-              <span>$</span>2880
-            </div>
-          </a>
-        </div>
-        <div class="item">
-          <a href>
-            <div class="photo">
-              <img src="https://d.ecimg.tw/items/DMAG5EA900AEOT0/000001_1575951205.jpg" />
-            </div>
-            <div class="title">
-              <h3>
-                科帥大容量5.5L 氣炸鍋 AF606空炸鍋 液晶觸控氣炸鍋 氣炸鍋
-                雙鍋+超值12件8吋烘培組
-              </h3>
-            </div>
-            <div class="original">
-              原價
-              <span>$</span>3990
-            </div>
-            <div class="price">
-              售價
-              <span>$</span>2880
-            </div>
-          </a>
-        </div>
-        <div class="item">
-          <a href>
-            <div class="photo">
-              <img src="https://d.ecimg.tw/items/DMAG5EA900AEOT0/000001_1575951205.jpg" />
-            </div>
-            <div class="title">
-              <h3>
-                科帥大容量5.5L 氣炸鍋 AF606空炸鍋 液晶觸控氣炸鍋 氣炸鍋
-                雙鍋+超值12件8吋烘培組
-              </h3>
-            </div>
-            <div class="original">
-              原價
-              <span>$</span>3990
-            </div>
-            <div class="price">
-              售價
-              <span>$</span>2880
-            </div>
-          </a>
+        <div
+          class="item"
+          v-for="item in productsUser.slice(0, 4)"
+          :key="item.id"
+          v-show="item.category == '氣炸鍋' && item.is_enabled == '1'"
+        >
+          <div class="photo">
+            <img :src="item.imageUrl" />
+          </div>
+          <div class="category text-center">{{item.category}}</div>
+          <div class="title text-center">{{ item.title }}</div>
+          <div class="price text-center">NT ＄{{ item.price }}</div>
         </div>
       </div>
       <div id="operating_hours" class="back">
@@ -326,96 +105,28 @@
       <div id="cutter" class="product_carousel wrapper">
         <h2>
           刀具
-          <span class="subtitle">Gas fryer</span>
+          <span class="subtitle">Cutter</span>
         </h2>
-        <div class="item">
-          <a href>
-            <div class="photo">
-              <img src="https://d.ecimg.tw/items/DMAG5EA900AEOT0/000001_1575951205.jpg" />
-            </div>
-            <div class="title">
-              <h3>
-                科帥大容量5.5L 氣炸鍋 AF606空炸鍋 液晶觸控氣炸鍋 氣炸鍋
-                雙鍋+超值12件8吋烘培組
-              </h3>
-            </div>
-            <div class="original">
-              原價
-              <span>$</span>3990
-            </div>
-            <div class="price">
-              售價
-              <span>$</span>2880
-            </div>
-          </a>
-        </div>
-        <div class="item">
-          <a href>
-            <div class="photo">
-              <img src="https://d.ecimg.tw/items/DMAG5EA900AEOT0/000001_1575951205.jpg" />
-            </div>
-            <div class="title">
-              <h3>
-                科帥大容量5.5L 氣炸鍋 AF606空炸鍋 液晶觸控氣炸鍋 氣炸鍋
-                雙鍋+超值12件8吋烘培組
-              </h3>
-            </div>
-            <div class="original">
-              原價
-              <span>$</span>3990
-            </div>
-            <div class="price">
-              售價
-              <span>$</span>2880
-            </div>
-          </a>
-        </div>
-        <div class="item">
-          <a href>
-            <div class="photo">
-              <img src="https://d.ecimg.tw/items/DMAG5EA900AEOT0/000001_1575951205.jpg" />
-            </div>
-            <div class="title">
-              <h3>
-                科帥大容量5.5L 氣炸鍋 AF606空炸鍋 液晶觸控氣炸鍋 氣炸鍋
-                雙鍋+超值12件8吋烘培組
-              </h3>
-            </div>
-            <div class="original">
-              原價
-              <span>$</span>3990
-            </div>
-            <div class="price">
-              售價
-              <span>$</span>2880
-            </div>
-          </a>
-        </div>
-        <div class="item">
-          <a href>
-            <div class="photo">
-              <img src="https://d.ecimg.tw/items/DMAG5EA900AEOT0/000001_1575951205.jpg" />
-            </div>
-            <div class="title">
-              <h3>
-                科帥大容量5.5L 氣炸鍋 AF606空炸鍋 液晶觸控氣炸鍋 氣炸鍋
-                雙鍋+超值12件8吋烘培組
-              </h3>
-            </div>
-            <div class="original">
-              原價
-              <span>$</span>3990
-            </div>
-            <div class="price">
-              售價
-              <span>$</span>2880
-            </div>
-          </a>
+        <div
+          class="item"
+          v-for="item in productsUser.slice(0, 4)"
+          :key="item.id"
+          v-show="item.category == '氣炸鍋' && item.is_enabled == '1'"
+        >
+          <div class="photo">
+            <img :src="item.imageUrl" />
+          </div>
+          <div class="category text-center">{{item.category}}</div>
+          <div class="title text-center">{{ item.title }}</div>
+          <div class="price text-center">NT ＄{{ item.price }}</div>
         </div>
       </div>
       <router-view></router-view>
     </main>
     <VueFooter></VueFooter>
+    <div id="pm" v-if="pm">
+      <div id="pm_content"></div>
+    </div>
   </div>
 </template>
 
@@ -428,13 +139,73 @@ export default {
     VueHeader,
     VueFooter
   },
-  methods: {},
+  data() {
+    return {
+      productsUser: [],
+      pm:false,
+    };
+  },
+  methods: {
+    getProducts() {
+      const url = `https://vue-course-api.hexschool.io/api/han_vue/products/all`;
+      this.$http.get(url).then(res => {
+        this.productsUser = res.data.products;
+        //console.log(this.productsUser);
+      });
+    }
+    // getProduct(id) {
+    //   const url = `https://vue-course-api.hexschool.io/api/han_vue/product/${id}`;
+    //   this.$http.get(url).then(res => {
+    //     this.product = res.data.product;
+    //     console.log(res.data.product);
+    //   });
+    // },
+    // addtoCart(id, qty = 1) {
+    //   //id,qty=1 假如數量(qty)沒帶進來，會預設為１
+    //   const cart = {
+    //     product_id: id,
+    //     qty
+    //   };
+    //   const url = `https://vue-course-api.hexschool.io/api/han_vue/cart`;
+    //   this.$http.post(url, { data: cart }).then(res => {
+    //     console.log(res.data.product);
+    //   });
+    // },
+    // getCart() {
+    //   const url = `https://vue-course-api.hexschool.io/api/han_vue/cart`;
+    //   this.$http.get(url).then(res => {
+    //     this.productsUser = res.data.products;
+    //     //console.log(res);
+    //   });
+    // }
+  },
   created() {
-    this.$store.dispatch("getAllProduct");
+    this.getProducts();
   }
 };
 </script>
-
+<style lang="scss">
+#pm {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  left: 0;
+  top: 0;
+  z-index: 10;
+  #pm_content{
+    width: 600px;
+    height: 600px;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+}
+</style>
 <style scoped lang="scss">
 main {
   margin-top: 90px;
@@ -520,39 +291,72 @@ main {
     }
     .item {
       width: 20%;
-      margin: 0 2.5%;
-      a {
-        text-decoration: none;
-        .photo {
-          img {
-            width: 100%;
-          }
+      margin: 15px 2.5%;
+      cursor: pointer;
+      position: relative;
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        transition: 0.6s;
+      }
+      &::after {
+        content: "點我看更多";
+        display: block;
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        line-height: 150px;
+        background-color: #d70445;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        border-radius: 120px;
+        opacity: 0;
+        transition: 1.5s;
+        text-align: center;
+        color: #fff;
+        font-size: 18px;
+        font-family: "Noto Serif SC", serif;
+        font-weight: 700;
+      }
+      &:hover {
+        &::before {
+          opacity: 1;
         }
-        .title {
-          h3 {
-            color: #000;
-            font-family: "Anton", "Pacifico", "Noto Serif SC", serif;
-            font-size: 16px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-          }
+        &::after {
+          opacity: 1;
         }
-        .original {
-          //font-family: "Anton", "Noto Serif SC", serif;
-          font-size: 16px;
-          font-weight: 600;
-          color: #696969;
-          text-align: right;
-          text-decoration: line-through;
+      }
+      .photo {
+        img {
+          max-width: 100%;
         }
-        .price {
-          // font-family: "Anton", "Pacifico", "Noto Serif SC", serif;
-          font-size: 24px;
-          font-weight: 700;
-          text-align: right;
-          color: #e80000;
-        }
+      }
+      .category {
+        font-size: 14px;
+        color: #a1a1a1;
+        padding: 10px 0;
+      }
+      .title {
+        font-family: "Anton", "Pacifico", "Noto Serif SC", serif;
+        font-size: 16px;
+        font-weight: 600;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      .price {
+        padding-top: 10px;
+        font-size: 20px;
+        font-weight: bolder;
+        color: #ff0000;
       }
     }
   }
@@ -632,8 +436,8 @@ main {
     }
     .product_carousel {
       .item {
-        width: 40%;
-        margin: 5%;
+        width: 95%;
+        margin: 2.5%;
       }
     }
     .back {

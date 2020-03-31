@@ -3,17 +3,31 @@
     <header>
       <div class="wrapper">
         <div id="logo">
-          <span>HAN</span>
-          家居生活
+          <router-link to="/">
+            <span>HAN</span>
+            家居生活
+          </router-link>
         </div>
-        <button id="menu_button" @click="PhoneMenu()"><span></span></button>
+        <button id="menu_button" @click="PhoneMenu()">
+          <span></span>
+        </button>
         <nav id="nav">
           <ul>
-            <li><router-link to="/about">關於我們</router-link></li>
-            <li><a href="">氣炸鍋</a></li>
-            <li><a href="">烤箱</a></li>
-            <li><a href="">果汁機</a></li>
-            <li><a href="">刀具</a></li>
+            <li id="about">
+              <router-link to="/about">關於我們</router-link>
+            </li>
+            <li>
+              <router-link to="/gasFryer">氣炸鍋</router-link>
+            </li>
+            <li>
+              <router-link to="/oven">烤箱</router-link>
+            </li>
+            <li>
+              <router-link to="/juicer">果汁機</router-link>
+            </li>
+            <li>
+              <router-link to="/cutter">刀具</router-link>
+            </li>
           </ul>
         </nav>
       </div>
@@ -30,9 +44,8 @@ export default {
   }
 };
 </script>
+
 <style scoped lang="scss">
-
-
 header {
   width: 100%;
   height: 90px;
@@ -48,21 +61,25 @@ header {
     display: flex;
     padding: 0 15px;
     #logo {
-      line-height: 90px;
-      width: 250px;
-      font-size: 24px;
-      font-family: "Pacifico", "Noto Serif SC", serif;
-      font-weight: 900;
-      span {
-        background-color: #d70545;
-        color: #fff;
-        padding: 0 10px;
-        font-size: 32px;
-        font-weight: normal;
+      a {
+        line-height: 90px;
+        width: 250px;
+        font-size: 24px;
+        font-family: "Pacifico", "Noto Serif SC", serif;
+        font-weight: 900;
+        color: #000;
+        text-decoration: none;
+        span {
+          background-color: #d70545;
+          color: #fff;
+          padding: 0 10px;
+          font-size: 32px;
+          font-weight: normal;
+        }
       }
     }
     #menu_button {
-      outline: none; 
+      outline: none;
       display: none;
     }
     nav {
@@ -82,6 +99,12 @@ header {
             transition: 0.6s;
             text-decoration: none;
             &:hover {
+              background-color: #242424;
+              color: #fff;
+            }
+          }
+          &.active {
+            a {
               background-color: #242424;
               color: #fff;
             }
@@ -171,11 +194,11 @@ header {
             a {
               display: block;
               &:hover {
-                &::before{
-                    content:"—    ";
+                &::before {
+                  content: "—    ";
                 }
-                &::after{
-                    content:"    —";
+                &::after {
+                  content: "    —";
                 }
               }
             }

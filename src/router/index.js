@@ -6,9 +6,15 @@ import login from '../components/pages/login.vue'
 import products from '../components/pages/products.vue'
 import add from '../components/pages/add.vue'
 import edit from '../components/pages/edit.vue'
-import About from '../views/About.vue'
 import simulationCustomerOrders from '../components/pages/simulation-CustomerOrders.vue'
 import simulationCart from '../components/pages/simulation-cart.vue'
+
+import About from '../views/About.vue'
+import gasFryer from '../views/gasFryer.vue'
+import oven from '../views/oven.vue'
+import juicer from '../views/juicer.vue'
+import cutter from '../views/cutter.vue'
+import AllProducts from '../views/AllProducts.vue'
 
 Vue.use(VueRouter)
 
@@ -17,15 +23,41 @@ const routes = [{
     redirect: '/'
     //避免進入沒定義的頁面(在網址列上亂打)
   },
+
+  {
+    path: '/',
+    name: 'home',
+    component: Home,
+  },
   {
     path: '/about',
     name: 'about',
     component: About
   },
   {
-    path: '/',
-    name: 'home',
-    component: Home,
+    path: '/AllProducts',
+    name: 'AllProducts',
+    component: AllProducts,
+  },
+  {
+    path: '/gasFryer',
+    name: 'gasFryer',
+    component: gasFryer,
+  },
+  {
+    path: '/oven',
+    name: 'oven',
+    component: oven,
+  },
+  {
+    path: '/juicer',
+    name: 'juicer',
+    component: juicer,
+  },
+  {
+    path: '/cutter',
+    name: 'cutter',
+    component: cutter,
   },
 
   //後台管理者登入
@@ -41,8 +73,7 @@ const routes = [{
     meta: {
       requiresAuth: true
     }, //內層需要每地都加才有用
-    children: [
-      {
+    children: [{
         path: 'products', // 前面路徑都會加上斜線,內層勿加,不然找不到
         name: 'products',
         component: products,
