@@ -4,9 +4,7 @@
     <main>
       <div id="banner">
         <div class="text">
-          <h1>
-            <span>HAN</span>居家生活
-          </h1>
+          <h1><span>HAN</span>居家生活</h1>
         </div>
         <div class="item">
           <img
@@ -20,19 +18,21 @@
           氣炸鍋
           <span class="subtitle">Gas fryer</span>
         </h2>
+
         <div
           class="item"
-          v-for="item in productsUser.slice(0, 4)"
+          v-for="item in productsUser"
           :key="item.id"
           v-show="item.category == '氣炸鍋' && item.is_enabled == '1'"
         >
           <div class="photo">
             <img :src="item.imageUrl" />
           </div>
-          <div class="category text-center">{{item.category}}</div>
+          <div class="category text-center">{{ item.category }}</div>
           <div class="title text-center">{{ item.title }}</div>
           <div class="price text-center">NT ＄{{ item.price }}</div>
         </div>
+        
       </div>
       <div id="discount" class="back">
         <!--優惠活動-->
@@ -51,14 +51,14 @@
         </h2>
         <div
           class="item"
-          v-for="(item) in productsUser.slice(0, 4)"
+          v-for="item in productsUser"
           :key="item.id"
           v-show="item.category == '烤箱' && item.is_enabled == '1'"
         >
           <div class="photo">
             <img :src="item.imageUrl" />
           </div>
-          <div class="category text-center">{{item.category}}</div>
+          <div class="category text-center">{{ item.category }}</div>
           <div class="title text-center">{{ item.title }}</div>
           <div class="price text-center">NT ＄{{ item.price }}</div>
         </div>
@@ -80,14 +80,14 @@
         </h2>
         <div
           class="item"
-          v-for="item in productsUser.slice(0, 4)"
+          v-for="item in productsUser"
           :key="item.id"
-          v-show="item.category == '氣炸鍋' && item.is_enabled == '1'"
+          v-show="item.category == '果汁機' && item.is_enabled == '1'"
         >
           <div class="photo">
             <img :src="item.imageUrl" />
           </div>
-          <div class="category text-center">{{item.category}}</div>
+          <div class="category text-center">{{ item.category }}</div>
           <div class="title text-center">{{ item.title }}</div>
           <div class="price text-center">NT ＄{{ item.price }}</div>
         </div>
@@ -109,14 +109,14 @@
         </h2>
         <div
           class="item"
-          v-for="item in productsUser.slice(0, 4)"
+          v-for="item in productsUser"
           :key="item.id"
-          v-show="item.category == '氣炸鍋' && item.is_enabled == '1'"
+          v-show="item.category == '刀具' && item.is_enabled == '1'"
         >
           <div class="photo">
             <img :src="item.imageUrl" />
           </div>
-          <div class="category text-center">{{item.category}}</div>
+          <div class="category text-center">{{ item.category }}</div>
           <div class="title text-center">{{ item.title }}</div>
           <div class="price text-center">NT ＄{{ item.price }}</div>
         </div>
@@ -131,6 +131,8 @@
 </template>
 
 <script>
+/* eslint-disable no-unused-vars */
+/* eslint-disable vue/no-unused-components */
 import VueHeader from "./shared/header";
 import VueFooter from "./shared/footer";
 
@@ -142,10 +144,18 @@ export default {
   data() {
     return {
       productsUser: [],
-      pm:false,
+      pm: false,
     };
   },
+  computed: {
+    enabled: function() {
+      return this.productsUser.filter(product => product.is_enabled === '1')
+    }
+  },
   methods: {
+    test() {
+      console.log(this.enabled);
+    },
     getProducts() {
       const url = `https://vue-course-api.hexschool.io/api/han_vue/products/all`;
       this.$http.get(url).then(res => {
@@ -193,7 +203,7 @@ export default {
   left: 0;
   top: 0;
   z-index: 10;
-  #pm_content{
+  #pm_content {
     width: 600px;
     height: 600px;
     background: #fff;
