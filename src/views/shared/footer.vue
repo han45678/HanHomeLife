@@ -16,18 +16,18 @@
         <div id="time">
           <p>
             <span>
-              客服信箱：
+              <span class="footer_title">客服信箱：</span>
               <a href="han0910812144@gmail.com">han0910812144@gmail.com</a>
             </span>
           </p>
           <p>
             <span>
-              客服專線：
+              <span class="footer_title">客服專線：</span>
               <a href="tel:0800-789-456">0800-789-456</a>
             </span>
           </p>
           <p>
-            <span>服務時間：</span>
+            <span class="footer_title">服務時間：</span>
             <span>周一至周五 早上:10:00 ~ 晚上18:00</span>
           </p>
         </div>
@@ -105,16 +105,32 @@ footer {
         width: 100%;
         padding: 50px 0 0 0;
         text-align: center;
+        li {
+          a {
+            font-size: 16px;
+            line-height: 30px;
+            padding: 0 15px;
+          }
+        }
       }
       #time {
         width: 100%;
         text-align: center;
+        p {
+          font-size: 14px;
+        }
         span {
           display: block;
         }
       }
       #authority {
         width: 100%;
+        a {
+          font-size: 12px;
+        }
+      }
+      .footer_title {
+        display: block;
       }
     }
   }

@@ -4,7 +4,9 @@
     <main>
       <div id="banner">
         <div class="text">
-          <h1><span>HAN</span>居家生活</h1>
+          <h1>
+            <span>HAN</span>居家生活
+          </h1>
         </div>
         <div class="item">
           <img
@@ -21,9 +23,9 @@
 
         <div
           class="item"
-          v-for="item in productsUser"
+          v-for="item in HomeGasFryer.slice(0, 4)"
           :key="item.id"
-          v-show="item.category == '氣炸鍋' && item.is_enabled == '1'"
+          @click="getProduct(item.id)"
         >
           <div class="photo">
             <img :src="item.imageUrl" />
@@ -32,7 +34,11 @@
           <div class="title text-center">{{ item.title }}</div>
           <div class="price text-center">NT ＄{{ item.price }}</div>
         </div>
-        
+        <div class="sort_button">
+          <router-link to="/gasFryer">
+            <button>觀看更多</button>
+          </router-link>
+        </div>
       </div>
       <div id="discount" class="back">
         <!--優惠活動-->
@@ -51,9 +57,9 @@
         </h2>
         <div
           class="item"
-          v-for="item in productsUser"
+          v-for="item in HomeOven.slice(0, 4)"
           :key="item.id"
-          v-show="item.category == '烤箱' && item.is_enabled == '1'"
+          @click="getProduct(item.id)"
         >
           <div class="photo">
             <img :src="item.imageUrl" />
@@ -61,6 +67,11 @@
           <div class="category text-center">{{ item.category }}</div>
           <div class="title text-center">{{ item.title }}</div>
           <div class="price text-center">NT ＄{{ item.price }}</div>
+        </div>
+        <div class="sort_button">
+          <router-link to="/oven">
+            <button>觀看更多</button>
+          </router-link>
         </div>
       </div>
       <div id="about" class="back">
@@ -80,9 +91,9 @@
         </h2>
         <div
           class="item"
-          v-for="item in productsUser"
+          v-for="item in HomeJuicer.slice(0, 4)"
           :key="item.id"
-          v-show="item.category == '果汁機' && item.is_enabled == '1'"
+          @click="getProduct(item.id)"
         >
           <div class="photo">
             <img :src="item.imageUrl" />
@@ -90,6 +101,11 @@
           <div class="category text-center">{{ item.category }}</div>
           <div class="title text-center">{{ item.title }}</div>
           <div class="price text-center">NT ＄{{ item.price }}</div>
+        </div>
+        <div class="sort_button">
+          <router-link to="/juicer">
+            <button>觀看更多</button>
+          </router-link>
         </div>
       </div>
       <div id="operating_hours" class="back">
@@ -109,9 +125,9 @@
         </h2>
         <div
           class="item"
-          v-for="item in productsUser"
+          v-for="item in HomeCutter.slice(0, 4)"
           :key="item.id"
-          v-show="item.category == '刀具' && item.is_enabled == '1'"
+          @click="getProduct(item.id)"
         >
           <div class="photo">
             <img :src="item.imageUrl" />
@@ -120,12 +136,37 @@
           <div class="title text-center">{{ item.title }}</div>
           <div class="price text-center">NT ＄{{ item.price }}</div>
         </div>
+        <div class="sort_button">
+          <router-link to="/cutter">
+            <button>觀看更多</button>
+          </router-link>
+        </div>
       </div>
       <router-view></router-view>
     </main>
     <VueFooter></VueFooter>
     <div id="pm" v-if="pm">
-      <div id="pm_content"></div>
+      <div id="pm_content">
+        <div class="shut" @click="shut()"></div>
+        <h3 class="title">{{product.title}}</h3>
+        <div class="photo">
+          <img :src="product.imageUrl" />
+        </div>
+        <div class="category">分類：{{product.category}}</div>
+        <div class="origin_price">原價：{{product.origin_price}}</div>
+        <div class="price">售價：{{product.price}}</div>
+        <div class="qty">
+          <label for="select">購買數量：</label>
+          <select id="select" v-model="product.num">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+        <button type="button" @click="addtoCart" class="btn btn-primary btn-lg btn-block">加入購物車</button>
+      </div>
     </div>
   </div>
 </template>
@@ -144,12 +185,30 @@ export default {
   data() {
     return {
       productsUser: [],
-      pm: false,
+      product: {},
+      pm: false
     };
   },
   computed: {
-    enabled: function() {
-      return this.productsUser.filter(product => product.is_enabled === '1')
+    HomeGasFryer: function() {
+      return this.productsUser
+        .filter(product => product.is_enabled === "1")
+        .filter(product => product.category === "氣炸鍋");
+    },
+    HomeOven: function() {
+      return this.productsUser
+        .filter(product => product.is_enabled === "1")
+        .filter(product => product.category === "烤箱");
+    },
+    HomeJuicer: function() {
+      return this.productsUser
+        .filter(product => product.is_enabled === "1")
+        .filter(product => product.category === "果汁機");
+    },
+    HomeCutter: function() {
+      return this.productsUser
+        .filter(product => product.is_enabled === "1")
+        .filter(product => product.category === "刀具");
     }
   },
   methods: {
@@ -162,32 +221,33 @@ export default {
         this.productsUser = res.data.products;
         //console.log(this.productsUser);
       });
+    },
+    shut() {
+      this.pm = false;
+      this.product = "";
+    },
+    getProduct(id) {
+      //抓取單一資料
+      const url = `https://vue-course-api.hexschool.io/api/han_vue/product/${id}`;
+      this.$http.get(url).then(res => {
+        this.product = res.data.product;
+        console.log(res);
+        this.pm = true;
+      });
+    },
+    addtoCart() {
+      const url = `https://vue-course-api.hexschool.io/api/han_vue/cart`;
+      this.status.loadingItem = this.product.id;
+      const cart = {
+        product_id: this.product.id,
+        qty: 1
+      };
+      this.$http.post(url, { data: cart }).then(res => {
+        console.log(res);
+        this.shut();
+        //this.status.loadingItem = "";
+      });
     }
-    // getProduct(id) {
-    //   const url = `https://vue-course-api.hexschool.io/api/han_vue/product/${id}`;
-    //   this.$http.get(url).then(res => {
-    //     this.product = res.data.product;
-    //     console.log(res.data.product);
-    //   });
-    // },
-    // addtoCart(id, qty = 1) {
-    //   //id,qty=1 假如數量(qty)沒帶進來，會預設為１
-    //   const cart = {
-    //     product_id: id,
-    //     qty
-    //   };
-    //   const url = `https://vue-course-api.hexschool.io/api/han_vue/cart`;
-    //   this.$http.post(url, { data: cart }).then(res => {
-    //     console.log(res.data.product);
-    //   });
-    // },
-    // getCart() {
-    //   const url = `https://vue-course-api.hexschool.io/api/han_vue/cart`;
-    //   this.$http.get(url).then(res => {
-    //     this.productsUser = res.data.products;
-    //     //console.log(res);
-    //   });
-    // }
   },
   created() {
     this.getProducts();
@@ -204,8 +264,10 @@ export default {
   top: 0;
   z-index: 10;
   #pm_content {
-    width: 600px;
-    height: 600px;
+    max-width: 768px;
+    height: auto;
+    max-height: 80vh;
+    padding: 30px;
     background: #fff;
     position: absolute;
     top: 50%;
@@ -213,6 +275,155 @@ export default {
     left: 0;
     right: 0;
     margin: auto;
+    overflow: auto;
+    .shut {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      background-color: #d70545;
+      z-index: 1;
+      &::before {
+        content: "";
+        width: 100%;
+        height: 2px;
+        background-color: #fff;
+        display: block;
+        top: 15px;
+        position: relative;
+        transform: rotate(45deg);
+      }
+      &::after {
+        content: "";
+        width: 100%;
+        height: 2px;
+        background-color: #fff;
+        display: block;
+        top: 13px;
+        position: relative;
+        transform: rotate(-45deg);
+      }
+    }
+    .title {
+      font-family: "Noto Serif SC", serif;
+      font-size: 24px;
+      font-weight: 700;
+      text-align: center;
+      padding-bottom: 30px;
+    }
+    .photo {
+      float: left;
+      width: 50%;
+      img {
+        width: 100%;
+      }
+    }
+    .category {
+      width: 50%;
+      float: left;
+      line-height: 50px;
+      font-family: "Noto Serif SC", serif;
+      font-size: 18px;
+      font-weight: 700;
+      padding-left: 50px;
+    }
+    .origin_price {
+      width: 50%;
+      float: left;
+      line-height: 50px;
+      font-family: "Noto Serif SC", serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #a1a1a1;
+      padding-left: 50px;
+      text-decoration: line-through;
+    }
+    .price {
+      width: 50%;
+      float: left;
+      line-height: 50px;
+      font-family: "Noto Serif SC", serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #ff0000;
+      padding-left: 50px;
+    }
+    .qty {
+      width: 50%;
+      float: left;
+      padding-left: 50px;
+      line-height: 50px;
+      font-family: "Noto Serif SC", serif;
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: 25px;
+    }
+    button {
+      width: calc(50% - 70px);
+      float: left;
+      margin-left: 50px;
+      margin-top: 50px;
+      margin-right: 20px;
+      background-color: #d70545;
+      border: 5px solid #d70545;
+      transition: 0.6s;
+      &:hover {
+        color: #d70545;
+        background-color: transparent;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 768px) {
+  #pm {
+    #pm_content {
+      margin: auto 50px;
+      .title {
+        font-size: 24px;
+        margin: 0;
+        padding-bottom: 25px;
+      }
+      .photo {
+        width: 100%;
+        text-align: center;
+        img {
+          width: 100%;
+          max-width: 300px;
+        }
+      }
+      .category {
+        width: 100%;
+        font-size: 18px;
+        text-align: center;
+        padding-left: 0;
+      }
+      .origin_price {
+        width: 100%;
+        font-size: 20px;
+        text-align: center;
+        padding-left: 0;
+      }
+      .price {
+        width: 100%;
+        font-size: 24px;
+        text-align: center;
+        padding-left: 0;
+      }
+      .qty {
+        width: 100%;
+        font-size: 14px;
+        text-align: center;
+        padding-left: 0;
+      }
+      button {
+        width: calc(100% - 100px);
+        margin-left: 50px;
+        margin-right: 50px;
+        margin-top: 25px;
+      }
+    }
   }
 }
 </style>
@@ -315,7 +526,7 @@ main {
         transition: 0.6s;
       }
       &::after {
-        content: "點我看更多";
+        content: "查看產品詳細";
         display: block;
         position: absolute;
         width: 150px;
@@ -355,7 +566,7 @@ main {
         padding: 10px 0;
       }
       .title {
-        font-family: "Anton", "Pacifico", "Noto Serif SC", serif;
+        font-family: "Roboto", "Pacifico", "Noto Serif SC", serif;
         font-size: 16px;
         font-weight: 600;
         overflow: hidden;
@@ -369,11 +580,37 @@ main {
         color: #ff0000;
       }
     }
+    .sort_button {
+      margin-top: 50px;
+      margin-left: auto;
+      margin-right: auto;
+      a {
+        button {
+          width: 250px;
+          line-height: 50px;
+          background-color: #d70545;
+          border: 5px solid #d70545;
+          color: #fff;
+          font-family: "Roboto", "Pacifico", "Noto Serif SC", serif;
+          font-size: 18px;
+          font-weight: 600;
+          border-radius: 30px;
+          border-top-left-radius: 3px;
+          border-bottom-right-radius: 3px;
+          transition: 0.6s;
+          &:hover {
+            color: #d70545;
+            background-color: transparent;
+          }
+        }
+      }
+    }
   }
   .back {
     height: 500px;
     background-position: 50%;
     background-size: cover;
+    background-attachment: fixed;
     color: #fff;
     position: relative;
     .wrapper {
@@ -446,7 +683,7 @@ main {
     }
     .product_carousel {
       .item {
-        width: 95%;
+        width: 45%;
         margin: 2.5%;
       }
     }

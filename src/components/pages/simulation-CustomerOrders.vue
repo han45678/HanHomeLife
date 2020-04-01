@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     getProducts() {
-      const url = `https://vue-course-api.hexschool.io/api/han_vue/products?page=:page`;
+      const url = `https://vue-course-api.hexschool.io/api/han_vue/products/all`;
       this.$http.get(url).then(res => {
         this.productsUser = res.data.products;
         //console.log(res);
@@ -43,27 +43,20 @@ export default {
       });
     },
     addtoCart(id, qty = 1) {
-      //id,qty=1 假如數量(qty)沒帶進來，會預設為１
+      const url = `https://vue-course-api.hexschool.io/api/han_vue/cart`;
+      this.status.loadingItem = id;
       const cart = {
-        product_id: id,
-        qty
+        product_id:id,
+        qty,
       };
-      const url = `https://vue-course-api.hexschool.io/api/han_vue/cart`;
-      this.$http.post(url, { data: cart }).then(res => {
-        console.log(res.data.product);
-      });
+      this.$http.post(url,{data:cart}).then((res)=>{
+        console.log(res);
+        this.status.loadingItem='';
+      })
     },
-    getCart() {
-      const url = `https://vue-course-api.hexschool.io/api/han_vue/cart`;
-      this.$http.get(url).then(res => {
-        this.productsUser = res.data.products;
-        //console.log(res);
-      });
-    }
   },
   created() {
     this.getProducts();
-    this.getCart();
   }
 };
 </script>

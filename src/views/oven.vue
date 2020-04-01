@@ -15,9 +15,9 @@
         <div class="row mt-4 wrapper">
           <div
             class="item col-md-3"
-            v-for="item in productsUser"
+            v-for="item in Oven"
             :key="item.id"
-            v-show="item.category == '烤箱' && item.is_enabled == '1'"
+            @click="getProduct(item.id)"
           >
             <div class="photo">
               <img :src="item.imageUrl" />
@@ -30,6 +30,29 @@
       </div>
     </main>
     <VueFooter></VueFooter>
+    <div id="pm" v-if="pm">
+      <div id="pm_content">
+        <div class="shut" @click="shut()"></div>
+        <h3 class="title">{{product.title}}</h3>
+        <div class="photo">
+          <img :src="product.imageUrl" />
+        </div>
+        <div class="category">分類：{{product.category}}</div>
+        <div class="origin_price">原價：{{product.origin_price}}</div>
+        <div class="price">售價：{{product.price}}</div>
+        <div class="qty">
+          <label for="select">購買數量：</label>
+          <select id="select" v-model="product.num">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+        <button type="button" @click="addtoCart" class="btn btn-primary btn-lg btn-block">加入購物車</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -44,9 +67,17 @@ export default {
   },
   data() {
     return {
-      productsUser: []
-      //product: {}
+      productsUser: [],
+      product: {},
+      pm: false
     };
+  },
+  computed: {
+    Oven: function() {
+      return this.productsUser
+        .filter(product => product.is_enabled === "1")
+        .filter(product => product.category === "烤箱");
+    }
   },
   methods: {
     getProducts() {
@@ -55,36 +86,23 @@ export default {
         this.productsUser = res.data.products;
         console.log(this.productsUser);
       });
-    }
-    // getProduct(id) {
-    //   const url = `https://vue-course-api.hexschool.io/api/han_vue/product/${id}`;
-    //   this.$http.get(url).then(res => {
-    //     this.product = res.data.product;
-    //     console.log(res.data.product);
-    //   });
-    // },
-    // addtoCart(id, qty = 1) {
-    //   //id,qty=1 假如數量(qty)沒帶進來，會預設為１
-    //   const cart = {
-    //     product_id: id,
-    //     qty
-    //   };
-    //   const url = `https://vue-course-api.hexschool.io/api/han_vue/cart`;
-    //   this.$http.post(url, { data: cart }).then(res => {
-    //     console.log(res.data.product);
-    //   });
-    // },
-    // getCart() {
-    //   const url = `https://vue-course-api.hexschool.io/api/han_vue/cart`;
-    //   this.$http.get(url).then(res => {
-    //     this.productsUser = res.data.products;
-    //     //console.log(res);
-    //   });
-    // }
+    },
+    shut() {
+      this.pm = false;
+      this.product = "";
+    },
+    getProduct(id) {
+      //抓取單一資料
+      const url = `https://vue-course-api.hexschool.io/api/han_vue/product/${id}`;
+      this.$http.get(url).then(res => {
+        this.product = res.data.product;
+        console.log(res);
+        this.pm = true;
+      });
+    },
   },
   created() {
     this.getProducts();
-    //this.getCart();
   }
 };
 </script>
