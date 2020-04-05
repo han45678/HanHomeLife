@@ -15,6 +15,7 @@ import oven from '../views/oven.vue'
 import juicer from '../views/juicer.vue'
 import cutter from '../views/cutter.vue'
 import AllProducts from '../views/AllProducts.vue'
+import shopCart from '../views/shopCart.vue'
 
 Vue.use(VueRouter)
 
@@ -58,6 +59,11 @@ const routes = [{
     path: '/cutter',
     name: 'cutter',
     component: cutter,
+  },
+  {
+    path: '/shopCart',
+    name: '/shopCart',
+    component: shopCart,
   },
 
   //後台管理者登入

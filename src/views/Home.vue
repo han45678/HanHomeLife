@@ -4,9 +4,7 @@
     <main>
       <div id="banner">
         <div class="text">
-          <h1>
-            <span>HAN</span>居家生活
-          </h1>
+          <h1><span>HAN</span>居家生活</h1>
         </div>
         <div class="item">
           <img
@@ -148,16 +146,16 @@
     <div id="pm" v-if="pm">
       <div id="pm_content">
         <div class="shut" @click="shut()"></div>
-        <h3 class="title">{{product.title}}</h3>
+        <h3 class="title">{{ product.title }}</h3>
         <div class="photo">
           <img :src="product.imageUrl" />
         </div>
-        <div class="category">分類：{{product.category}}</div>
-        <div class="origin_price">原價：{{product.origin_price}}</div>
-        <div class="price">售價：{{product.price}}</div>
+        <div class="category">分類：{{ product.category }}</div>
+        <div class="origin_price">原價：{{ product.origin_price }}</div>
+        <div class="price">售價：{{ product.price }}</div>
         <div class="qty">
           <label for="select">購買數量：</label>
-          <select id="select" v-model="product.num">
+          <select id="select" v-model="defaultNum">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -165,7 +163,13 @@
             <option value="5">5</option>
           </select>
         </div>
-        <button type="button" @click="addtoCart" class="btn btn-primary btn-lg btn-block">加入購物車</button>
+        <button
+          type="button"
+          @click="addtoCart"
+          class="btn btn-primary btn-lg btn-block"
+        >
+          加入購物車
+        </button>
       </div>
     </div>
   </div>
@@ -186,7 +190,11 @@ export default {
     return {
       productsUser: [],
       product: {},
-      pm: false
+      defaultNum: 1,
+      pm: false,
+      status: {
+        loadingItem: ""
+      }
     };
   },
   computed: {
@@ -212,9 +220,6 @@ export default {
     }
   },
   methods: {
-    test() {
-      console.log(this.enabled);
-    },
     getProducts() {
       const url = `https://vue-course-api.hexschool.io/api/han_vue/products/all`;
       this.$http.get(url).then(res => {
@@ -235,17 +240,22 @@ export default {
         this.pm = true;
       });
     },
-    addtoCart() {
+    addtoCart(id, qty = "1") {
+      const self = this;
       const url = `https://vue-course-api.hexschool.io/api/han_vue/cart`;
-      this.status.loadingItem = this.product.id;
+      self.status.loadingItem = this.product.id;
       const cart = {
         product_id: this.product.id,
-        qty: 1
+        qty: this.defaultNum
       };
-      this.$http.post(url, { data: cart }).then(res => {
+      self.$http.post(url, { data: cart }).then(res => {
         console.log(res);
-        this.shut();
-        //this.status.loadingItem = "";
+        self.shut();
+        self.pm = false;
+        self.product = "";
+        self.$swal("完成了!", "商品已加入購物車", "success");
+        this.defaultNum= 1;
+        this.status.loadingItem = "";
       });
     }
   },
@@ -435,6 +445,7 @@ main {
     height: calc(100vh - 90px);
     overflow: hidden;
     position: relative;
+    z-index: 1;
     .text {
       width: 320px;
       height: 320px;
