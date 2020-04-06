@@ -13,7 +13,6 @@
           <span class="subtitle">Shop Cart</span>
         </h2>
       </div>
-
       <div id="shopCart">
         <div class="wrapper">
           <div class="item" v-for="item in shopCart" :key="item.id">
@@ -27,12 +26,92 @@
               <div class="price">NT ＄{{ item.product.price }}</div>
             </div>
             <div class="delete">
-              <button type="button" class="btn btn-danger">刪除</button>
+              <button @click="removeShopCart(item.id)" type="button" class="btn btn-danger">
+                <i class="far fa-trash-alt"></i>
+              </button>
             </div>
           </div>
-          <div class="final_total text-right">
-            總共金額：{{ sum.final_total }}
+          <div class="final_total text-right">總共金額：{{ sum.final_total }}</div>
+          <!-- <div class="row mt-4">
+            <div class="col-12 col-md-10 col-sm-8 mt-1">
+              <input type="text" v-model="coupon_code" class="form-control" placeholder="請輸入優惠碼" />
+            </div>
+            <div class="col-12 col-md-2 col-sm-4 mt-1">
+              <button type="button" @click="AddCouponCode()" class="btn btn-outline-secondary btn-block">使用優惠碼</button>
+            </div>
+          </div>-->
+          <div class="text-center mt-4">
+            <button type="button" class="btn btn-danger" @click="goReceiver()">
+              填寫收件人資料
+              <i class="ml-2 fas fa-arrow-circle-down"></i>
+            </button>
           </div>
+        </div>
+      </div>
+      <div id="receiver" v-if="receiver" class="row wrapper justify-content-md-center">
+        <div class="col-xl-8">
+          <h3 class="text-center">收貨人資料</h3>
+          <form @submit.prevent="createOrder()">
+            <div class="form-group">
+              <label for="exampleFormControlInput1">信箱</label>
+              <input
+                v-model="form.user.email"
+                type="email"
+                name="email"
+                class="form-control"
+                placeholder="請輸入信箱"
+                v-validate="'required|email'"
+              />
+              <span class="text-danger" v-if="errors.has('email')">{{ errors.first('email') }}</span>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">姓名</label>
+              <input
+                v-model="form.user.name"
+                type="text"
+                name="name"
+                class="form-control"
+                placeholder="請輸入收件人姓名"
+                v-validate="'required'"
+                :class="{'is-invalid':errors.has('name')}"
+              />
+              <span class="text-danger" v-if="errors.has('name')">姓名必須輸入</span>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">電話</label>
+              <input v-model="form.user.tel" type="tel" class="form-control" placeholder="請輸入收件人電話" required/>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">地址</label>
+              <input
+                v-model="form.user.address"
+                type="address"
+                name="address"
+                required
+                class="form-control"
+                placeholder="請輸入收件人地址"
+                v-validate="'required'"
+                :class="{'is-invalid':errors.has('address')}"
+              />
+              <span class="text-danger" v-if="errors.has('address')">地址必須輸入</span>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">留言</label>
+              <textarea
+                v-model="form.message"
+                class="form-control"
+                rows="5"
+                name="message"
+                placeholder="請輸入你的建議"
+              ></textarea>
+            </div>
+            <div class="text-center">
+              <button type="button" class="mt-4 btn btn-danger">
+                前往付款
+                <i class="fab fa-shopify"></i>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </main>
@@ -47,35 +126,85 @@ import VueFooter from "./shared/footer";
 export default {
   components: {
     VueHeader,
-    VueFooter,
+    VueFooter
   },
   data() {
     return {
+      receiver: false,
       shopCart: {},
       sum: {},
+      form: {
+        user: {
+          name: "",
+          email: "",
+          tel: "",
+          address: ""
+        },
+        message: ""
+      }
+      //coupon_code: ""
     };
   },
-  computed: {},
   methods: {
-    test() {
-      console.log(this.enabled);
-    },
     getShopCart() {
       const url = `https://vue-course-api.hexschool.io/api/han_vue/cart`;
-      this.$http.get(url).then((res) => {
+      this.$http.get(url).then(res => {
         this.shopCart = res.data.data.carts;
         this.sum = res.data.data;
-        console.log(res.data.data);
+        //console.log(res.data.data);
       });
     },
+    removeShopCart(id) {
+      const self = this;
+      const url = `https://vue-course-api.hexschool.io/api/han_vue/cart/${id}`;
+      self.$http.delete(url).then(res => {
+        console.log(res);
+        self.getShopCart();
+        self.$swal("刪除成功!", "商品已移除購物車", "success");
+      });
+    },
+    goReceiver() {
+      this.receiver = true;
+    },
+    createOrder() {
+      const url = `https://vue-course-api.hexschool.io/api/han_vue/order`;
+      const orde = this.form;
+      this.$validtor.validate().then(result => {
+        if (result) {
+          this.$http.post(url, { data: orde }).then(res => {
+            console.log("訂單已建立", res);
+            if(res.data.success){
+              this.$router.push(`/customer_checkout/${res.data.orderId}`)
+            }
+          });
+        } else {
+          console.log("欄位不完整");
+        }
+      });
+    }
+    /*AddCouponCode() {
+      const url = `https://vue-course-api.hexschool.io/api/han_vue/coupon`;
+      const coupon = {
+        code:this.coupon_code
+      }
+      this.$http.post(url,{data:coupon}).then(res => {
+        console.log(res);
+        this.getShopCart();
+      });
+    }*/
   },
   created() {
     this.getShopCart();
-  },
+  }
 };
 </script>
 
 <style scoped lang="scss">
+main {
+  position: relative;
+  z-index: 1;
+  background-color: #fff;
+}
 #shopCart {
   .wrapper {
     padding: 50px 50px;
@@ -137,9 +266,14 @@ export default {
     }
   }
 }
+#receiver {
+  padding: 50px 50px;
+}
 @media only screen and (max-width: 768px) {
   #shopCart {
+    padding: 50px 15px;
     .wrapper {
+      padding: 50px 0px;
       .item {
         align-items: initial;
         .photo {
@@ -177,6 +311,9 @@ export default {
         }
       }
     }
+  }
+  #receiver {
+    padding: 50px 15px;
   }
 }
 </style>

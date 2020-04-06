@@ -143,6 +143,7 @@ export default {
   background-position: 50%;
   background-size: cover;
   position: relative;
+  z-index: 1;
   h2 {
     color: #fff;
     position: absolute;

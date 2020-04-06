@@ -20,12 +20,12 @@
           <li class="nav-item">
             <router-link class="nav-link" to>優惠卷</router-link>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <router-link class="nav-link" to="simulation-customer-orders">模擬訂單</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="simulation-cart">模擬購物車</router-link>
-          </li>
+          </li> -->
         </ul>
       </div>
     </nav>

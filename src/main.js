@@ -5,13 +5,26 @@ import VueSweetalert2 from 'vue-sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
+import VeeValidate from 'vee-validate';
+import zhTW from 'vee-validate/dist/locale/zh_TW';
+import VueI18n from 'vue-i18n';Vue.use(VueI18n);
 import App from './App.vue'
 import router from './router'
 import store from './store'
 
-Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
+const i18n = new VueI18n({
+  locale: 'zhTW'
+});
+Vue.use(VeeValidate, {
+  i18n,
+  dictionary: {
+    zhTW
+  }
+});
+Vue.use(VeeValidate);
+Vue.use(VueAwesomeSwiper, /* { default options with global component } */ )
 Vue.use(VueSweetalert2);
-Vue.use(VueAxios, axios)
+Vue.use(VueAxios, axios);
 Vue.config.productionTip = false
 
 axios.defaults.withCredentials = true; //允許Cookies

@@ -8,6 +8,7 @@ import add from '../components/pages/add.vue'
 import edit from '../components/pages/edit.vue'
 import simulationCustomerOrders from '../components/pages/simulation-CustomerOrders.vue'
 import simulationCart from '../components/pages/simulation-cart.vue'
+import customerCheckout from '../components/pages/customerCheckout.vue'
 
 import About from '../views/About.vue'
 import gasFryer from '../views/gasFryer.vue'
@@ -62,8 +63,13 @@ const routes = [{
   },
   {
     path: '/shopCart',
-    name: '/shopCart',
+    name: 'shopCart',
     component: shopCart,
+  },
+  {
+    path: '/customer_checkout/:orderId',
+    name: 'customerCheckout',
+    component: customerCheckout,
   },
 
   //後台管理者登入
