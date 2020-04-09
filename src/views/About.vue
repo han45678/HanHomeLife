@@ -6,9 +6,9 @@
         <!--關於我banner-->
         <div class="wrapper">
           <div class="content">
-            <h2>關於HAN居家生活</h2>
-            <p class="pl-2">
-              <span class="red">『 HAN居家生活，讓您在家可以hen居家！ 』</span>
+            <h2>HAN居家生活</h2>
+            <p>
+              <span class="red">『HAN居家生活,讓您在家可以hen居家！』</span>
             </p>
             <p class="mt-4">HAN居家生活創立於1995年</p>
             <p>主要販售居家生活用品</p>
@@ -157,7 +157,7 @@ main {
             .red {
               background: #d70545;
               padding: 5px 5px;
-              font-size: 14px;
+              font-size: 12px;
             }
           }
         }

@@ -172,6 +172,7 @@
         </button>
       </div>
     </div>
+    <!-- <img :src="smartCart" alt=""> -->
   </div>
 </template>
 
@@ -181,6 +182,8 @@
 import VueHeader from "./shared/header";
 import VueFooter from "./shared/footer";
 
+//import SmartCart from '../../src/assets/image/smart-cart.png'
+
 export default {
   components: {
     VueHeader,
@@ -188,6 +191,7 @@ export default {
   },
   data() {
     return {
+      //smartCart: SmartCart,
       productsUser: [],
       product: {},
       defaultNum: 1,
@@ -389,7 +393,8 @@ export default {
 @media only screen and (max-width: 768px) {
   #pm {
     #pm_content {
-      margin: auto 50px;
+      padding: 50px 15px 50px 15px;
+      margin: auto 15px;
       .title {
         font-size: 24px;
         margin: 0;
@@ -428,9 +433,9 @@ export default {
         padding-left: 0;
       }
       button {
-        width: calc(100% - 100px);
-        margin-left: 50px;
-        margin-right: 50px;
+        width: calc(100% - 30px);
+        margin-left: 15px;
+        margin-right: 15px;
         margin-top: 25px;
       }
     }
@@ -540,9 +545,9 @@ main {
         content: "查看產品詳細";
         display: block;
         position: absolute;
-        width: 150px;
-        height: 150px;
-        line-height: 150px;
+        width: 120px;
+        height: 120px;
+        line-height: 120px;
         background-color: #d70445;
         top: 0;
         bottom: 0;
@@ -554,7 +559,7 @@ main {
         transition: 1.5s;
         text-align: center;
         color: #fff;
-        font-size: 18px;
+        font-size: 16px;
         font-family: "Noto Serif SC", serif;
         font-weight: 700;
       }

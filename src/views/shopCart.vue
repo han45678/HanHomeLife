@@ -26,12 +26,18 @@
               <div class="price">NT ＄{{ item.product.price }}</div>
             </div>
             <div class="delete">
-              <button @click="removeShopCart(item.id)" type="button" class="btn btn-danger">
+              <button
+                @click="removeShopCart(item.id)"
+                type="button"
+                class="btn btn-danger"
+              >
                 <i class="far fa-trash-alt"></i>
               </button>
             </div>
           </div>
-          <div class="final_total text-right">總共金額：{{ sum.final_total }}</div>
+          <div class="final_total text-right">
+            總共金額：{{ sum.final_total }}
+          </div>
           <!-- <div class="row mt-4">
             <div class="col-12 col-md-10 col-sm-8 mt-1">
               <input type="text" v-model="coupon_code" class="form-control" placeholder="請輸入優惠碼" />
@@ -48,10 +54,14 @@
           </div>
         </div>
       </div>
-      <div id="receiver" v-if="receiver" class="row wrapper justify-content-md-center">
+      <div
+        id="receiver"
+        v-if="receiver"
+        class="row wrapper justify-content-md-center"
+      >
         <div class="col-xl-8">
           <h3 class="text-center">收貨人資料</h3>
-          <form @submit.prevent="createOrder()">
+          <form @submit.prevent="createOrder">
             <div class="form-group">
               <label for="exampleFormControlInput1">信箱</label>
               <input
@@ -62,7 +72,9 @@
                 placeholder="請輸入信箱"
                 v-validate="'required|email'"
               />
-              <span class="text-danger" v-if="errors.has('email')">{{ errors.first('email') }}</span>
+              <span class="text-danger" v-if="errors.has('email')">{{
+                errors.first("email")
+              }}</span>
             </div>
             <div class="form-group">
               <label for="exampleFormControlInput1">姓名</label>
@@ -73,13 +85,21 @@
                 class="form-control"
                 placeholder="請輸入收件人姓名"
                 v-validate="'required'"
-                :class="{'is-invalid':errors.has('name')}"
+                :class="{ 'is-invalid': errors.has('name') }"
               />
-              <span class="text-danger" v-if="errors.has('name')">姓名必須輸入</span>
+              <span class="text-danger" v-if="errors.has('name')"
+                >姓名必須輸入</span
+              >
             </div>
             <div class="form-group">
               <label for="exampleFormControlInput1">電話</label>
-              <input v-model="form.user.tel" type="tel" class="form-control" placeholder="請輸入收件人電話" required/>
+              <input
+                v-model="form.user.tel"
+                type="tel"
+                class="form-control"
+                placeholder="請輸入收件人電話"
+                required
+              />
             </div>
             <div class="form-group">
               <label for="exampleFormControlInput1">地址</label>
@@ -91,9 +111,11 @@
                 class="form-control"
                 placeholder="請輸入收件人地址"
                 v-validate="'required'"
-                :class="{'is-invalid':errors.has('address')}"
+                :class="{ 'is-invalid': errors.has('address') }"
               />
-              <span class="text-danger" v-if="errors.has('address')">地址必須輸入</span>
+              <span class="text-danger" v-if="errors.has('address')"
+                >地址必須輸入</span
+              >
             </div>
             <div class="form-group">
               <label for="exampleFormControlTextarea1">留言</label>
@@ -106,8 +128,8 @@
               ></textarea>
             </div>
             <div class="text-center">
-              <button type="button" class="mt-4 btn btn-danger">
-                前往付款
+              <button type="submit" class="mt-4 btn btn-danger">
+                確認資料
                 <i class="fab fa-shopify"></i>
               </button>
             </div>
@@ -126,7 +148,7 @@ import VueFooter from "./shared/footer";
 export default {
   components: {
     VueHeader,
-    VueFooter
+    VueFooter,
   },
   data() {
     return {
@@ -138,17 +160,17 @@ export default {
           name: "",
           email: "",
           tel: "",
-          address: ""
+          address: "",
         },
-        message: ""
-      }
+        message: "",
+      },
       //coupon_code: ""
     };
   },
   methods: {
     getShopCart() {
       const url = `https://vue-course-api.hexschool.io/api/han_vue/cart`;
-      this.$http.get(url).then(res => {
+      this.$http.get(url).then((res) => {
         this.shopCart = res.data.data.carts;
         this.sum = res.data.data;
         //console.log(res.data.data);
@@ -157,7 +179,7 @@ export default {
     removeShopCart(id) {
       const self = this;
       const url = `https://vue-course-api.hexschool.io/api/han_vue/cart/${id}`;
-      self.$http.delete(url).then(res => {
+      self.$http.delete(url).then((res) => {
         console.log(res);
         self.getShopCart();
         self.$swal("刪除成功!", "商品已移除購物車", "success");
@@ -167,21 +189,25 @@ export default {
       this.receiver = true;
     },
     createOrder() {
+      // eslint-disable-next-line no-unused-vars
       const url = `https://vue-course-api.hexschool.io/api/han_vue/order`;
+      // eslint-disable-next-line no-unused-vars
       const orde = this.form;
-      this.$validtor.validate().then(result => {
+      const self = this;
+      this.$validator.validate().then((result) => {
         if (result) {
-          this.$http.post(url, { data: orde }).then(res => {
-            console.log("訂單已建立", res);
-            if(res.data.success){
-              this.$router.push(`/customer_checkout/${res.data.orderId}`)
+          self.$http.post(url, { data: orde }).then((res) => {
+            //console.log("訂單已建立", res);
+            if (res.data.success) {
+              self.$router.push(`/customer_checkout/${res.data.orderId}`);
+              self.$swal("完成!", "訂單已建立", "success");
             }
           });
         } else {
-          console.log("欄位不完整");
+          self.$swal("欄位不完整!", "請確認後再送出", "error");
         }
       });
-    }
+    },
     /*AddCouponCode() {
       const url = `https://vue-course-api.hexschool.io/api/han_vue/coupon`;
       const coupon = {
@@ -195,7 +221,7 @@ export default {
   },
   created() {
     this.getShopCart();
-  }
+  },
 };
 </script>
 
@@ -268,6 +294,8 @@ main {
 }
 #receiver {
   padding: 50px 50px;
+  font-weight: 600;
+  font-family: "Noto Serif SC", serif;
 }
 @media only screen and (max-width: 768px) {
   #shopCart {

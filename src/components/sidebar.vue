@@ -18,7 +18,7 @@
             <router-link class="nav-link" to="add">新增產品</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to>優惠卷</router-link>
+            <router-link class="nav-link" to="order">客戶訂單列表</router-link>
           </li>
           <!-- <li class="nav-item">
             <router-link class="nav-link" to="simulation-customer-orders">模擬訂單</router-link>
