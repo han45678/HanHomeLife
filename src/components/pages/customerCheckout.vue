@@ -60,13 +60,13 @@ export default {
       const url = `https://vue-course-api.hexschool.io/api/han_vue/order/${this.orderId}`;
       this.$http.get(url).then(res => {
         this.order = res.data.order;
-        console.log(res);
+        //console.log(res);
       });
     }
   },
   created() {
     this.orderId = this.$route.params.orderId;
-    console.log(this.orderId);
+    //console.log(this.orderId);
   }
 };
 </script>

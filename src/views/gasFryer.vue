@@ -91,7 +91,7 @@ export default {
       const url = `https://vue-course-api.hexschool.io/api/han_vue/products/all`;
       this.$http.get(url).then(res => {
         this.productsUser = res.data.products;
-        console.log(this.productsUser);
+        //console.log(this.productsUser);
       });
     },
     shut() {
@@ -103,7 +103,7 @@ export default {
       const url = `https://vue-course-api.hexschool.io/api/han_vue/product/${id}`;
       this.$http.get(url).then(res => {
         this.product = res.data.product;
-        console.log(res);
+        //console.log(res);
         this.pm = true;
       });
     },
@@ -116,7 +116,7 @@ export default {
         qty: this.defaultNum
       };
       self.$http.post(url, { data: cart }).then(res => {
-        console.log(res);
+        //console.log(res);
         self.shut();
         self.pm = false;
         self.product = "";

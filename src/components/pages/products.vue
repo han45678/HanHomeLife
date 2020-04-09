@@ -70,8 +70,8 @@
                 class="form-control"
               />
             </div>
-            <div class="form-group col-md-6">
-              <label for="price">輸入圖片網址</label>
+            <div class="form-group col-md-12">
+              <label for="price">圖片位置</label>
               <input
                 type="text"
                 id="image"
@@ -168,7 +168,7 @@ export default {
           }
         )
         .then(resp => {
-          console.log(resp);
+          //console.log(resp);
           document.getElementById("isEdit").classList.remove("active");
           self.$store.dispatch("getAllProduct");
           self.$swal("修改成功！", "商品已修改完成", "success");
@@ -181,7 +181,7 @@ export default {
       this.$http
         .delete(api)
         .then(response => {
-          console.log(response);
+          //console.log(response);
           if (response.data.success) {
             self.$swal("刪除成功！", "商品已刪除", "info");
             this.$store.dispatch("getAllProduct");

@@ -39,7 +39,7 @@ export default {
       const url = `https://vue-course-api.hexschool.io/api/han_vue/product/${id}`;
       this.$http.get(url).then(res => {
         this.product = res.data.product;
-        console.log(res.data.product);
+        //console.log(res.data.product);
       });
     },
     addtoCart(id, qty = 1) {
@@ -50,7 +50,7 @@ export default {
         qty,
       };
       this.$http.post(url,{data:cart}).then((res)=>{
-        console.log(res);
+        //console.log(res);
         this.status.loadingItem='';
       })
     },

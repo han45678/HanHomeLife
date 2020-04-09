@@ -27,7 +27,7 @@ export default {
       const url = `https://vue-course-api.hexschool.io/api/han_vue/cart`;
       this.$http.get(url).then(res => {
         this.productsUser = res.data.productsCart;
-        console.log(res.data.productsCart);
+        //console.log(res.data.productsCart);
       });
     }
   },

@@ -27,7 +27,7 @@ export default new Vuex.Store({
     }) {
       axios.get('https://vue-course-api.hexschool.io/api/han_vue/products/all')
         .then(resp => {
-          console.log(resp.data.products);
+          //console.log(resp.data.products);
           commit('SET_PRODUCT', resp.data.products);
           //this.pagination = resp.data.pagination;
         })

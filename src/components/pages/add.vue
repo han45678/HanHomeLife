@@ -85,7 +85,7 @@
               class="form-control"
             />
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-12">
             <label for="price">輸入圖片網址</label>
             <input
               type="text"
@@ -95,10 +95,10 @@
               class="form-control"
             />
           </div>
-          <div class="form-group col-md-6">
+          <!-- <div class="form-group col-md-6">
             <label for="inputfile">或 上傳圖片</label>
             <input class="form-control" ref="file" @change="uploadFile" type="file" id="inputfile" />
-          </div>
+          </div> -->
           <div class="form-group col-md-12 text-center">
             <img :src="tempProduct.imageUrl" />
           </div>
@@ -125,7 +125,7 @@ export default {
         "https://vue-course-api.hexschool.io/api/han_vue/admin/product";
       self.$http.post(api, { data: this.tempProduct }).then(response => {
         //送出的參數是物件並包著data，所以必須用大括弧包起來 //例：{data:this.tempProduct}
-        console.log(response.data);
+        //console.log(response.data);
         if (response.data.success) {
           self.$swal("新增成功！", "商品已新增", "success");
           self.$router.push("products"); //內頁加上斜線會找不到
@@ -134,21 +134,25 @@ export default {
         }
       });
     },
-    uploadFile() {
-      const uploadedFile = this.$refs.files.files[0];
-      const formData = new FormData();
-      formData.append("file-to-upload", uploadedFile);
-      const api = `https://vue-course-api.hexschool.io/api/han_vue/admin/upload`;
-      this.$http
-        .post(api, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data"
-          }
-        })
-        .then(res => {
-          console.log(res.data);
-        });
-    }
+    // uploadFile() {
+    //   //console.log(this)
+    //   const uploadedFile = this.$refs.files.files[0];
+    //   const formData = new FormData();
+    //   formData.append("file-to-upload", uploadedFile);
+    //   const api = `https://vue-course-api.hexschool.io/api/han_vue/admin/upload`;
+    //   this.$http
+    //     .post(api, formData, {
+    //       headers: {
+    //         'Content-Type': 'multipart/form-data'
+    //       }
+    //     })
+    //     .then(res => {
+    //       //console.log(res.data);
+    //       // if (res.data.success) {
+    //       //   this.$set(this.tempProduct, "imageUrl", res.data.imageUrl);
+    //       // }
+    //     });
+    // }
   }
 };
 </script>

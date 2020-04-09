@@ -51,7 +51,7 @@ export default {
       this.$http.post(api, this.user, {
         withCredentials: true //correct
       }).then(response => {
-        console.log(response.data);
+        //console.log(response.data);
         if (response.data.success){
         //如果data裡的success是true就執行這個行為
             this.$router.push('/admin/products')

@@ -43,7 +43,7 @@ router.beforeEach((to, from, next) => {
     const api = "https://vue-course-api.hexschool.io/api/user/check";
     //admin＝讀取cookie需要
     axios.post(api).then(response => {
-      console.log(response.data);
+      //console.log(response.data);
       if (response.data.success) {
         //swal('登入成功');
         next({});
