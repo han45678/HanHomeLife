@@ -12,7 +12,7 @@
     "bootstrap": "^4.4.1",
     "core-js": "^3.6.4",
     "jquery": "^3.4.1",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "sweetalert": "^2.1.2",
     "swiper": "^5.3.6",
     "vee-validate": "^2.2.15",
